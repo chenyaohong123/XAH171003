@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>doc_w</title>
+	<style>
+	div{
+		width: 200px;
+		height: 200px;
+		background-color: green;
+	}
+</style>
+
+</head>
+<body id="wrap">
+	<div class="box" id="a"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<script>
+		/* 
+		 1.当页面加载完成后，页面的输出流回关闭，之后再使用document.write('')去向页面写入内容时。新写入的内容会覆盖页面的原有内容。如果在页面并没有加载完之前使用document,write（''）向页面写入内容，就不会覆盖，而是拼接在内容后面。
+		 2.document.write();方法不能向页面里直接写入变量，如果写入，会将变量转换成非理想字符串，写入页面。
+		
+		  根据元素的class获取元素:获取到的是所有匹配到相应class名称的集合，哪怕只有一个元素，结果也是一个集合
+		
+		  */
+
+
+		  var body = document.getElementById('wrap');
+		  var boxs = body.innerHTML;
+
+		  var a = document.getElementById('a');
+		  a.onclick = function(){		
+		  	// body.innerHTML = boxs;	
+		  	alert('hello');			
+		  	body.innerHTML += '123';
+			body.innerHTML += '<div style="width:200px;height:200px;background:red;"></div>';
+			console.log(body.innerHTML);
+		}
+
+		// document.write(boxs,'<div style="width:200px;height:200px;background :red;"></div>');
+		// document.write('123','<div style="width:200px;height:200px;background :blue; "></div>');
+		// }
+</script>
+</body>
+</html>

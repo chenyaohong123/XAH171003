@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>拳打灰太狼</title>
+	<style>
+		#container {
+			width: 320px;
+			height: 480px;
+			background: url(img/game_bg.jpg);
+			margin: 40px auto;
+			border: 1px solid transparent;
+			position: relative;
+		}
+		#start p,#over p {
+			text-align: center;
+			font-size: 2.3rem;
+			color: #f60;
+			text-shadow: 0 0 5px yellow;
+			margin: 0;
+			margin-top: 10px;
+			font-weight: bolder;
+		}
+		#start p:hover, #over p:hover {
+			cursor: pointer;
+		}
+		#start {
+			margin-top: 192px;
+		}
+		#score {
+			position: absolute;
+			left: 60px;
+			top: 9px;
+			color: #fff;
+			font-size: 20px;
+			font-weight: bolder;
+		}
+		#timing {
+			width: 180px;
+			height: 16px;
+			background: #f60;
+			border-radius: 30px;
+			position: absolute;
+			left: 63px;
+			top: 66px;
+		}
+		#over {
+			display: none;
+			position: absolute;
+			left: 90px;
+			top: 180px;
+		}
+		#wolves {
+			position: relative;
+		}
+		#wolves>img {
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<!-- 分数 -->
+		<div id="score">0</div>
+		<!-- 倒计时 -->
+		<div id="timing"></div>
+		<!-- 开始模块 -->
+		<div id="start">
+			<p>开始</p>
+			<p>操作说明</p>
+		</div>
+		<!-- 结束模块 -->
+		<div id="over">
+			<p>游戏结束</p>
+		</div>
+		<!-- 狼 -->
+		<div id="wolves"></div>
+	</div>
+</body>
+
+ <script>
+		// 获取元素
+		var timingDiv = document.querySelector('#timing');
+		var scoreDiv  = document.querySelector('#score');
+		var startDiv  = document.querySelector('#start>p');
+		var overDiv   = document.querySelector('#over');
+		var wolves    = document.querySelector('#wolves');
+		var  start    = document.querySelector('#start');
+
+		// 狼的位置数组(二维数组,内层数组第0个值代表left，第1个值代表top	)
+		var posArr = [
+			['98px' ,'115px'],
+			['17px' ,'160px'],
+			['15px' ,'220px'],
+			['30px' ,'293px'],
+			['122px','273px'],
+			['207px','295px'],
+			['200px','211px'],
+			['187px','141px'],
+			['100px','185px']
+		];
+        
+        var score = 0;//分数
+
+        function randomNum(x,y){
+        	return Math.round(Math.random()*(y-x) + x);
+        }
+
+        function createWolf(){
+            var  wolf  = new Image();
+            wolf.type  = randomNum(0,100)> 10 ? 'x' : 'h';
+            wolf.index = 0;
+            wolf.src   = 'img/' + wolf.type + wolf.index + '.png';
+
+            var indexNum;
+            var      bol = 1;
+            while(bol){
+            var  allWolf = wolves.children;
+                indexNum = randomNum(0,8);
+                for(i=0;i<allWolf.length;i++){
+                	if(allWolf[i].style.left == posArr[randomNum][0]){
+                		break;
+                	}
+                	}
+                	if(i==allWolf.length){
+                	bol=0;
+                }
+
+            }
+
+            wolf.style.left = posArr[indexNum][0];
+            wolf.style.top  = posArr[indexNum][1];
+
+            wolves.appendChild(wolf);
+            return wolf;
+        }
+        // createWolf();
+
+       
+       function wolfFn(){
+       	var wolf = createWolf();
+       	wolf.appearTimer = setInterval(function(){
+       	wolf.index++;
+       	wolf.src = 'img/' + wolf.type + wolf.index + '.png';
+       	if(wolf.index==5){
+       	clearInterval(wolf.appearTimer);
+       	wolf.disappearTimer  = setInterval(function(){
+       	wolf.index --;
+       	wolf.src = 'img/' + wolf.type + wolf.index + '.png';
+       	if(wolf.index == 0){
+       	clearInterval(wolf.disappearTimer);
+       	wolf.remove();
+       	}
+       	},100);
+       	}
+       	},100);
+       	beatWolf(wolf);
+       }
+       
+
+       function beatWolf(a){
+       a.flag = 1;
+       a.onclick = function(){
+       if(a.flag){
+       	clearInterval(a.appearTimer);
+       	clearInterval(a.disappearTimer);
+       	a.index = 5;
+       	a.afterClickTimer = setInterval(function(){
+       	a.index++;
+       	a.src = 'img/' + a.type + a.index + '.png';
+       	if(a.index == 9){
+       	clearInterval(a.afterClickTimer);
+       	a.remove();
+       	}
+       	},100);
+       }
+       a.flag = 0;
+       if(a.type == 'h'){
+       	score += 10;
+       }
+       if(a.type == 'x'){
+       	score -=10;
+       }
+       scoreDiv.innerText = score;
+       }
+       }
+       
+       
+       var  createWolfTimer;
+       function createWolfByTime(){
+       	createWolfTimer = setInterval(function(){
+       	wolfFn();
+       	},200);
+       }
+       
+
+       function wolfTiming(){
+       	var num = 180;
+       	var timing1 = setInterval(function(){
+       	num--;
+       	timing.style.width= num + 'px';
+       	if(num<=0){
+
+          clearInterval(timing1);
+       	  clearInterval(createWolfTimer);
+       	  overDiv.style.display = 'block';
+
+       	var newOverP = document.createElement('p');
+       	newOverP.innerText = '重新开始';
+       	overDiv.appendChild(newOverP);
+
+       	newOverP.onclick = function(){
+       	wolfTiming();
+       	createWolfByTime();
+       	overDiv.style.display = 'none';
+       	newOverP.remove();
+       	score = 0;
+       	scoreDiv.innerText = score;
+       	}
+       	}
+       	},100);
+       }
+
+       startDiv.onclick = function(){
+       	start.style.display = 'none';
+       	createWolfByTime();
+       	wolfTiming();
+       }
+ </script>
+
+</html>

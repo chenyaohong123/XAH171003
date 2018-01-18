@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery工具方法</title>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="box"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../jq19/jquery-3.2.1.min.js"></script>
+	<script>
+		/*
+					 工具方法：
+					 $.trim(atr); 去掉str前后连续的空格。返回一个新的字符串。
+					 
+					 $.each(arr.function(i,item){});//遍历数组
+					 $.grep(arr.function(item,i){});//过滤数组且不能修改数组元素
+					 $.map(arr.function(item,i){});//修改数组元素的值
+					 $.inArray(item,arr);//获取item数据在arr数组中的位置
+					 $.merge(arr1,arr2);//合并两个数组并返回一个新数组
+					 
+					 $.isArray(obj)//判断是否为数组，是返回true
+					 $.isFunction(obj)//判断是否为函数，是返回true
+					 $.isEmptyObject(obj)//判断是否为空对象，是返回true
+					 $.isPlainObject(obj)//判断是否为纯粹对象，是返回true
+					 $.contains(obj)//判段DOM节点是否含有另一个DOM节点，是返回true
+					 $.type(data)//判断数据类型
+					 $.isNumeric(data)//判断数据是否为数值
+					 $.isWindow(data)//判断数据是否为window对象
+					 
+					 注：jQ对象和js原生对象相互转化
+					 $('#wrap')[0];//从jQ对象里取出该对象所对应的原生对象
+					 
+					 var box = document.getElementById('box');
+					 $(box);//将box这个原生对象转换成jQ对象
+					 
+		*/
+		var str = '  aksdfg     ';
+		$.trim(str);
+		console.log($.trim(str));
+		console.log(str);
+
+		var arr = [11, 22, 33, 44, 55, 66, 77, 88, 99, 10];
+		$.each(arr, function(i, item) {
+			//console.log(item);	
+			//console.log(i);
+		});
+
+		//		arr = $.grep(arr,function(item,i){
+		//			if(item %3 == 0){//3的整数倍
+		//				return item;//返回新的返回值
+		//				//return item*2;//不能改变数组里的元素，item * 2不生效 
+		//			}
+		//		});
+		//		console.log(arr);
+
+		arr1 = $.map(arr, function(item, i) {
+			if(item % 3 == 0) {
+				return item * 2;
+			}
+		});
+		console.log(arr1);
+		
+		
+//		arr2 = [33,44,5];
+//		console.log($.inArray(33,arr2));//获取数据在数组中的位置
+//		
+		var arr3 = [1,2,3],arr4 = [4,5,6],arr5 = [7,8,9];
+//	    console.log($.merge(arr3,arr4,arr5));	
+ 		
+ 		var num1 = 'asldfg';
+		console.log($.isArray(arr3));//true 判断是否为数组，布尔类型的值
+		console.log($.isArray(num1));//false
+		
+		function test(){
+			setInterval(function(){
+//				console.log(1);
+				var a = 0;
+				
+				if(a>4){}
+				return a-1;
+			},200);
+		}
+		test();
+		
+		console.log($.isFunction(test));//true  判断是否为函数 布尔类型
+		console.log($.isFunction(num1));//false
+		
+		
+		var wrap = document.getElementById('wrap');
+		
+		console.log($(wrap).css('border','1px solid red'));  
+		console.log($('#box')[0]);
+		
+		var box  = document.getElementById('box');
+		console.log($.contains(wrap,box));
+		/*判断DOM节点是否有子节点。有反回值ture，否则false
+		 $.contains(container,contained);
+		 container:父级元素；  js原生对象
+		 contained:要判断元素；js原生对象
+		 */
+		
+		var num1=122;
+		var str7 = 'sdfhoskl';
+		var arr10 = [1,2,3,4,5,6];
+		var aaa  = true;
+		console.log($.type(num1));//number
+		console.log($.type(str7));//string
+		console.log($.type(arr10));//array
+		console.log($.type(aaa));//boolean
+		
+		console.log($.isNumeric(num1));//true
+		console.log($.isNumeric(aaa));//false
+		
+		console.log($.isWindow(window));//true
+		console.log($.isWindow(num1));//false
+	</script>
+
+</html>

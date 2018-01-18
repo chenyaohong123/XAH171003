@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	/*
+	 在正则表达式中，有一些字符有特殊的含义，如果要去匹配这个字符本身，要将其进行转义(类如/\//);
+	 常见的元字符：{}  ()  []  /  \\  ^  $   +  * .  ?  - 
+	 
+	 量词
+	 /a{2}/g;
+	 返回字符串中所有两个连着的a；
+	 
+	 /a{2,6}/g;
+	 返回字符串中所有2，3，4，5，6个连着的a；
+	 
+	 /a{2,}/g;
+	 返回字符串中2个及2个以上连着的a；
+	 
+	 ?:没有或者一次
+	 *:没有或者多次
+	 +:至少一次，一次或者多次
+	 
+	 脱字符^
+	 /^g/：规定字符串必须以g打头
+	 
+	 中括号[]
+	 [abc//];a或b或c
+	 [^abc]开头不是a，b，c
+	 [a-z]表示区间zi之间的任意字母
+	 [a-z0-9];a~z之间的字母或0~9之间的数字
+	 
+	 模式设置:
+	 g：全局模式
+	 i: 是否区分大小写
+	 m: 是否识别换行符(多行匹配)
+	 
+	 \d 匹配0-9之间的任一数字，相当于[0-8];
+	 \D 匹配所有0-9以外的字符，相当于[^0-9];
+	 \w 匹配任意的字母，数字和下划线，相当于[A-Za-z0-9];
+	 \W 除所有字母，数字和下划线以外的字符，相当于[^A-Za-z0-9];
+	 \s 匹配空格，包括制表符，空格符，断行符等
+	 \S 匹配非空格的字符
+	 \b 匹配单词的边界
+	 \B 匹配非单词边界
+	 
+	 [\b]匹配退格键
+	 \n  匹配换行键
+	 \r  匹配回车键
+	 \f  匹配换页符
+	 \t  查找制表符tab
+	 */
+		var str ='/asdf/ghfgj/';
+		var reg1 = /\//g;
+		var result1 = str.match(reg1);
+		console.log(result1);
+		
+		var str2    = 'aaaaaaamfsldkaaagsklglksdg';
+		var reg2    = /a{2}/g;
+		var result2 =str2.match(reg2);
+		console.log(result2);//['aa','aa','aa'];
+		
+		var reg3     = /a{2,6}/g;
+		var result3 =str2.match(reg3);
+		console.log(result3);
+		
+		var reg4     = /a{2,}/g;
+		var result4  = str2.match(reg4);
+		console.log(result4);
+		
+		var str3 = 'ajhbhasfbdbjkdfhjk';
+	    var str4 = 'aa';
+	    var reg5 =/a?/g;//0次或者1次
+	    console.log(str4.match(reg5));
+	    
+	    var reg6 = /a*/g;//0次或者多次
+	    console.log(str4.match(reg6));
+	    
+	    var reg7 = /a+/g;//1次或者多次
+	    console.log(str4.match(reg7));
+	    
+	    var str5 = 'bgkajdhfg';
+	    var reg8 = /^g/;//字符串必须是g打头的
+//	    var result5 = str5.match(reg8);
+	    var result6 = reg8.test(str5);
+	    console.log(result6);
+	    
+	    var str6 = 'a';
+	    var reg9 = /[abc]/;
+	    console.log(reg9.test(str6));
+	    
+	    var reg10 =/[^abc]/;//不是abc
+	    console.log(reg10.test(str6));
+	    
+	    var str7 ='A';
+	    var reg11 =/[a-z]/;//
+	    console.log(reg11.test(str7));
+	    
+	    //电话号码正则
+	    var telReg = /^1[^012][0-9]{9}/;
+	    
+	    
+	    function test(){
+	    	return 1;
+	    }
+	    console.log(test());
+	    
+	    var str8  = 's';
+	    var reg12 = /\d/;
+	    console.log(reg12.test(str7));
+	    
+	    //js变量命名规则
+	    var  regOfVariableName  = /^[a-zA-Z_$][\w$]*/;
+        
+        var  str9 = '        ';
+        var  reg13=/\S/g;
+        var result8 =str9.match(reg13);
+        console.log(result8);
+        if(result8==null){
+        	
+        }
+        var str10 = 'asdf fsefklsfjlksdfj';
+        var reg14 = /\b/g;
+        console.log(str10.match(reg14));
+	</script>
+</html>

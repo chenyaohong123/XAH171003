@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>选字游戏2</title>
+	<style>
+		#wrap{
+			width: 400px;
+			height: 550px;
+			background: pink;
+			margin: 0 auto;
+			border-radius: 50px;
+		}
+		#top{
+			width: 400px;
+			
+		}
+		#time{
+			display: inline-block;
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		#score{
+			float: right;
+			margin-top: 20px;
+			margin-right: 20px;
+		}
+		#bigText{
+			font-size: 250px;
+			margin: 0 72px;
+		}
+		#intr{
+			font-size: 25px;
+			margin-left: 24px;
+		}
+		#smallText{
+	 	font-size: 50px;
+	 	margin: 0  40px;
+	 }
+	</style>
+</head>
+<body>
+	<div id="wrap">
+	 	<div id="top">
+	 		<div id="time">倒计时：60s</div>
+	 		<div id="score">分数：0</div>
+	 	</div>
+	 	<div id="content">
+	 		<div id="bigText">黄</div>
+	 		<div id="intr">根据上面的字的颜色选择正确的字，选择正确自动开始</div>
+	 	</div>
+	 	<div id="smallText">
+	 		<span class="text">黄</span>
+	 		<span class="text">蓝</span>
+	 		<span class="text">红</span>
+	 		<span class="text">绿</span>
+	 		<span class="text">黑</span>
+	 	</div>
+	 </div>
+
+
+	 <script>
+	 	 var leaveTime  = document.getElementById('time');
+	 	 var scoreDiv   = document.getElementById('score');
+	 	 var bigText    = document.getElementById('bigText');
+	 	 var smallTexts = document.getElementsByClassName('text');
+
+	 	 var charArr    = ['黄','红','蓝','绿','黑'];
+	 	 var colorArr   = ['yellow','red','blue','green','black'];
+
+	 	 function randomNum(x,y){
+         return  Math.round(Math.random()* (y - x) + x );
+	 	 }
+
+
+	 	 function randomIndex(){
+	 	 	var arr = [];
+	 	 	while(arr.length < 5){
+	 	 	var num = randomNum(0,4);
+	 	 		if(arr.indexOf(num) < 0){
+                   arr.push(num);
+	 	 		}
+	 	 	}
+	 	 	return arr;
+	 	 }
+
+          function createCon(){
+          	var charIndex  = randomNum(0,4);
+          	var colorIndex = randomNum(0,4);
+            var     a      = charIndex;
+            var     b      = colorIndex;
+            bigText.innerText   = charArr[a];
+            bigText.style.color = colorArr[b]; 
+
+            var  smallCharArr  = randomIndex();
+            var  smallColorArr = randomIndex();
+            for(i = 0 ; i < smallCharArr.length;i++){
+            var     c  		   =  smallCharArr[i];
+            var     d          =  smallColorArr[i];
+            smallTexts[i].innerText   = charArr[c];
+            smallTexts[i].style.color = colorArr[d];
+            }
+          }
+          createCon();
+
+
+          var  score  = 0;
+          var  timing = 5;
+          var  flag   = '1';
+          function game(){
+          for(i = 0 ; i < smallTexts.length;i ++){
+          	smallTexts[i].onclick = function(){
+          	var    thisChar    = this.innerText;
+          	var    index1      = charArr.indexOf(thisChar);
+          	var    bigColor    = bigText.style.color;
+          	var    index2      = colorArr.indexOf(bigColor);
+            if(index1 == index2){
+            	score ++;
+            	scoreDiv.innerText = '得分：' + score;
+            createCon();
+
+            if(flag == '1'){
+              var timer = setInterval(function(){
+              timing --;
+              leaveTime.innerText = '倒计时:' + timing + 's';
+              if(timing < 0){
+              	clearInterval(timer);
+              	alert('时间到,得分'+ score);
+              	leaveTime.innerText = '倒计时：0s';
+              	leaveTime.innerText = '倒计时：60s';
+              	scoreDiv.innerText  = '得分：0';
+              	timing = 5;
+              	score  = 0;
+              	game();
+              	flag   = '1';
+              }
+              },1000);
+              flag  = '0';
+            } 
+            }    
+          	}
+          }
+          }
+          game();
+          var arrColor2 = ['pink','green','blue'];
+          var i = 0;
+          setInterval(function(){
+          wrap.style.background = arrColor2[i];
+          if(i==arrColor2.length) i=-1;
+           i++;
+         },1000);
+	 </script>
+</body>
+</html>

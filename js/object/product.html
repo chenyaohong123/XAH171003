@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		/*面向对象是一种编程思想。将具有相同属性的一类对象所面对的思想创建出来
+		 * 大量的简化了面向过程中繁琐的代码。
+		 * 面向对象创建对象的方式： 
+		 * 工厂模式（函数传参，接收参数，返回一个具体的对象）
+		 * 
+		 */
+	function createPeople(name_,age_,job_){
+		var newPepole = {
+			name: name_,
+			age : age_,
+			job : job_,
+			eat:function(){
+			console.log(name_+'很能吃');
+		} 
+		}
+		return newPepole;	  
+	}
+	
+	var  p1 = createPeople('刘盼','18','前端');
+	console.log(p1);
+	p1.eat();
+	
+	var  p2 = createPeople('王闯','40','前端');
+	console.log(p2);
+	p2.eat();
+	
+	
+	</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>二维数组</title>
+</head>
+<body>
+	<script>
+		var arr = [[1,2,3],[4,5,6],[7,8,9]];//二维数组
+		console.log(arr[1][1]);//取出二维数组里的元素
+		//将9改成10
+		arr[2][2] = 10;
+		document.write(arr[2][2] + '<br>');
+
+		arr[0].push('hello');
+		document.write(arr[0] + '<br>');//[1,2,3,hello]
+
+		arr[1].shift();
+		document.write(arr[1] + '<br>');
+
+		arr[2].splice(1,0,'world');
+		document.write(arr[2] + '<br>');
+
+		var arrA = ['a','b','c'];
+		arr.splice(1,0,arrA);
+		document.write(arr); 
+        
+        //用循环将newArr的三个子数组输出到控制台上
+		var newArr = [[1,2,3,'hello'],[4,5,6],[7,8,9]];
+		for(i=0;i<newArr.length;i++){
+        console.log(newArr[i]);
+		}
+
+		//将newArr里的第一个子数组的所有元素输出
+		for(j=0;j<newArr[0].length;j++){
+			console.log(newArr[0][j]);
+		}
+
+		//将newArr数组里的子数组里的所有元素输出
+		for(m=0;m<newArr.length;m++){
+			for(n=0;n<newArr[m].length;n++){
+			console.log(newArr[m][n]);
+			}
+		}
+	</script>
+</body>
+</html>

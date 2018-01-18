@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				text-align: center;
+				background: lightblue;
+			}
+			
+			#myCanvas2 {
+				border: 2px solid lightblue;
+				background: white;
+				display: block;
+				margin: 0 auto;
+			}
+			
+			.box>input {
+				margin-top: 20px;
+				margin-left: 10px;
+				width: 100px;
+				height: 50px;
+				background: lightblue;
+				outline: none;
+				color: white;
+				border: 1px solid white;
+				cursor: pointer;
+				border-radius: 20px;
+				vertical-align: top;
+			}
+			
+			.box>input:focus {
+				background: pink;
+			}
+			
+			#inp {
+				background: lightblue;
+			}
+			
+			span {
+				margin-left: 10px;
+				font-size: 20px;
+				color: white;
+				width: 80px;
+				height: 50px;
+				margin-top: 35px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+		<div class="box">
+			<span style="margin-left: -10px;">颜色板</span>
+			<input type="color" value="#000" id="inp" />
+			<input type="button" id="btn1" value="橡皮" />
+			<input type="button" id="btn3" value="画圆" />
+			<input type="button" id="btn4" value="画线" />
+			<input type="button" id="btn5" value="画块" />
+			<input type="button" id="btn2" value="清除" />
+			<span>线条粗细</span>
+			<input type="number" min="1" value="1" / id="inp2">
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+		var ctx = mc.getContext('2d');
+		var btn = document.querySelectorAll('input');
+		var penColor;
+		var penWidth;
+
+		for(var i = 1; i < btn.length; i++) {
+			btn[i].onclick = function(e) {
+				var e = event || window.event;
+				var ID = this.getAttribute('id');
+				switch(ID) {
+					case 'btn1':
+						xaingp();
+						break;
+					case 'btn2':
+						clear();
+						break;
+					case 'btn3':
+						drawCircl();
+						break;
+					case 'btn4':
+						draw();
+						break;
+					case 'btn5':
+						drawJU();
+						break;
+				}
+			}
+		}
+
+		//画线
+		function draw() {
+			//为画布添加鼠标摁下事件
+			mc.onmousedown = function() {
+				penWidth = $('#inp2').val();
+				penColor = $('#inp').val();
+				//计算出鼠标基于canvas的位置
+				var e = event || window.event;
+				var startX = e.clientX - mc.offsetLeft;
+				var startY = e.clientY - mc.offsetTop;
+				//开启一条路径，并且设置第一个点
+				ctx.beginPath();
+				ctx.moveTo(startX, startY);
+				mc.onmousemove = function() {
+					var ev = event || window.event;
+					var endX = ev.clientX - mc.offsetLeft;
+					var endY = ev.clientY - mc.offsetTop;
+
+					//鼠标移动的点就是线所走的点，即lineTo的位置
+					ctx.lineTo(endX, endY);
+					ctx.lineWidth = penWidth;
+					ctx.strokeStyle = penColor;
+					ctx.stroke();
+				}
+			}
+			//鼠标抬起事件,抬起时清除mousemove
+			document.onmouseup = function() {
+				mc.onmousemove = null;
+			}
+		}
+		draw();
+
+		//清除
+		function clear() {
+			ctx.clearRect(0, 0, 800, 600);
+		}
+
+		//橡皮
+		function xaingp() {
+			mc.onmousedown = function() {
+				var e = event || window.event;
+				ctx.beginPath();
+				mc.onmousemove = function(e) {
+					//arc绘制   
+					//获取坐标
+					var startX = e.clientX - mc.offsetLeft;
+					var startY = e.clientY - mc.offsetTop;
+					ctx.fillStyle = 'white';
+					ctx.arc(startX, startY, 50, 0, Math.PI * 2);
+					ctx.fill();
+				}
+			}
+			document.onmouseup = function() {
+				mc.onmousemove = null;
+			}
+		}
+
+		//画圆
+		function drawCircl() {
+			mc.onmousedown = function() {
+				penColor = $('#inp').val();
+				var e = event || window.event;
+				//获取坐标
+				var startX = e.clientX - mc.offsetLeft;
+				var startY = e.clientY - mc.offsetTop;
+				mc.onmousemove = function() {
+					//  	ctx.clearRect(0,0,800,600);//清除画布
+					//获取end，endY
+					var e1 = event || window.event;
+					var endX = e1.clientX - mc.offsetLeft;
+					var endY = e1.clientY - mc.offsetTop;
+					//计算圆心的位置
+					var ox = startX + (endX - startX) / 2;
+					var oy = startY + (endY - startY) / 2;
+					// pow(平方)，sqrt();
+					var o1 = Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2); //计算直径
+					//计算半径
+					var r = Math.sqrt(o1) / 2;
+					//arc绘制
+					ctx.beginPath();
+					ctx.fillStyle = penColor;
+					ctx.arc(ox, oy, r, 0, Math.PI * 2);
+					ctx.fill();
+				}
+			}
+			document.onmouseup = function() {
+				mc.onmousemove = null;
+			}
+		}
+
+		//画块
+		function drawJU() {
+			//为canvas添加mousedown事件
+			mc.onmousedown = function() {
+				penColor = $('#inp').val();
+				var e = event || window.event;
+				//获取坐标
+				var startX = e.clientX - mc.offsetLeft;
+				var startY = e.clientY - mc.offsetTop;
+				mc.onmousemove = function() {
+					var e1 = event || window.event;
+					//获取坐标(鼠标基于canvas)endX,endY
+					var endX = e1.clientX - mc.offsetLeft;
+					var endY = e1.clientY - mc.offsetTop;
+					//根据两个坐标计算出要绘制矩形的宽高
+					var width = endX - startX;
+					var height = endY - startY;
+					//					ctx.clearRect(0, 0, 800, 600); //清除画布
+					ctx.beginPath();
+					ctx.fillStyle = penColor;
+					ctx.fillRect(startX, startY, width, height);
+					ctx.fill();
+				}
+			}
+			document.onmouseup = function() {
+				mc.onmousemove = null;
+			}
+
+		}
+	</script>
+
+</html>

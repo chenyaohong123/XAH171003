@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>本地存储</title>
+	</head>
+	<body>
+		<script>
+		/*
+		本地存储 cookie
+		(1)大小为5kb左右
+		(2)存储cookie：document.cookie = 'key=value';//(键值对)
+		(3)取cookie  : document.cookie;
+		(4)cookie的存取都是以字符串的形式
+		(5)cookie的生命周期，当浏览器关闭之后，cookie就被清除
+		
+		localStorage 
+		(1)大小为5MB左右。
+		(2)存储和读取以及修改
+		   localStorage.key   = value;
+		   localStorage['key']= value;
+		   localStorage.setItem('key',value);//读取getItem('key');
+		(3)清除 localStorage.clear();
+		(4)如果不设置时长，localStorage的数据会一直存储在本地
+		 */
+			document.cookie = 'name=zwl';
+			document.cookie = 'age=0';
+			document.cookie = 'sex = boy';
+			document.cookie = 'haha=asdfg';
+			document.cookie = 'name=5';
+			console.log(typeof document.cookie);//获取cookie
+			
+			function setCookie(x,y){
+			   document.cookie = x +'='+ y; 
+			}
+			setCookie('aaa','10545234123435');
+			
+			function getCookie(key){
+				//取到字符串
+				var ck = document.cookie;//srt
+				var ckArr = ck.split(';');//将cookie字符串截取成数组
+				//['age=10','name=z','sex=girl'];
+				for(var i = 0;i<ckArr.length;i++){
+				 //['age','10']
+				 ckArr[i] = ckArr[i].split('=');//将ckArr里的，每一个元素截取成新的数组，ckArr变成一个二维数组
+				 if(ckArr[i][0] == key){//判断键
+				 	return ckArr[i][1];//返回键相对应的值
+				 }
+				}
+				return '没找到需要的值';
+			}
+			var name1 = getCookie('name');
+			console.log(name1);
+			
+//			//存储localStorage
+//			localStorage.username = '哈哈';
+//			localStorage.pswd     = '85767687sdawda';
+//			localStorage['sex']   = 'boy';
+//			var  arr = [1,2,3,4,5];
+//			localStorage.setItem('arr1',arr);
+//			setCookie('arr1',arr);
+//			//取localStorage
+//			console.log(localStorage.arr1);
+//			console.log(localStorage['username']);
+//			console.log(localStorage.getItem('sex'));
+//			
+//			//修改localStorage
+//			localStorage.username = '这是修改后的内容';
+			
+			//清除localStorage
+//			localStorage.clear();
+		</script>
+	</body>
+</html>

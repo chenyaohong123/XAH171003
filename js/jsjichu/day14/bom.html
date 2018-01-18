@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>BOM</title>
+	<style>
+		div {
+			width: 200px;
+			height: 200px;
+			background: pink;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+ <script>
+ 	/*
+ 	BOM: Browser Object Model(浏览器对象模型)
+
+ 	事件对象event:
+ 	事件触发时创建的一个对象，含有事件触发时的各种可供使用的信息。在事件触发一瞬间创建，事件触发结束的时候销毁。第二次触发事件时，产生一个新的event对象.
+
+ 	鼠标事件:
+ 	onclick: 单击             ondblclick:双击
+ 	oncontextmenu: 鼠标右击
+ 	onmouseover  : 鼠标移入    onmouseout  : over相对应的鼠标移出事件
+ 	onmouseenter : 鼠标移入    onmouseleave: enter相对应的鼠标移出事件
+ 	onmousemove  : 鼠标移动
+
+
+ 	event对象提供的鼠标常用位置
+ 	screenX,screenY: 基于电脑屏幕左上角的位置
+ 	clientX,clientY: 基于浏览器窗口左上角的位置
+ 	 pageX ,  pageY: 基于文档流左上角的位置
+
+ 	*/
+ 	
+ 	var box = document.getElementById('box');
+ 	document.onclick = function(){
+  
+    var e = window.event || event ; //event事件对象
+         // console.log(e.screenX,e.screenY);
+         // console.log(e.clientX,e.clientY);
+         console.log(e.pageX,e.pageY);
+ 	}
+
+ 	// box.ondblclick    = function(){
+    //   console.log('双击');
+ 	// }
+
+ 	// box.oncontextmenu = function(){
+ 	// 	 console.log('鼠标右击')
+ 	// }
+
+ 	// box.onmouseover   = function(){
+ 	// 	console.log('鼠标移入');
+ 	// }
+
+ 	// box.onmouseout    =  function(){
+ 	// 	console.log('over相对应的鼠标移出事件');
+ 	// }
+
+ 	// box.onmouseenter  =  function(){
+ 	// 	console.log('鼠标移入');
+ 	// }
+
+ 	// box.onmouseleave  = function(){
+ 	// 	console.log('enter相对应的鼠标移出事件');
+ 	// }
+
+ 	// box.onmousemove   =  function(){
+ 	// 	console.log('鼠标移动');
+ 	// }
+ </script>	
+</body>
+</html>

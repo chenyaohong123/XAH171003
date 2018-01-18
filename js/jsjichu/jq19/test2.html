@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.on{
+				width: 200px;
+				height: 200px;
+				color:pink;
+				font-size: 20px;
+			}
+			.up{
+				color: lightblue;
+				font-size: 30px;
+			}
+			.box{
+				width: 200px;
+				height: 200px;
+				border: 5px solid lightblue;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">this is  wrap</div>
+	</body>
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	
+	<script>
+	/*
+	 对元素类名进行操作的函数：
+	 ele.addClass('className1 className2');//添加一个或多个类名
+	 ele.removeClass('className1 className2');//删除一个或多个类名
+	 ele.toggleClass('on';)//设置或移除类名(切换))
+	 
+	 ele.css();设置或者获取ele元素的样式
+	 */
+	$('#wrap').addClass('on box');//添加类名
+	$('#wrap').removeClass('on');//移除类名
+	
+	document.getElementById('wrap').onclick = function(){
+		$('#wrap').toggleClass('on box');
+	}
+	
+	console.log($('#wrap').css('color'));//获取wrap的color样式
+	$('#wrap').css('text-align','center');//设置样式
+	
+	$('#wrap').css({//用JQuery批量设置样式
+		'border-radius' : '50%',
+		'box-shadow':'0 0 30px blue',
+		'line-height':'200px'
+	});
+	</script>
+</html>

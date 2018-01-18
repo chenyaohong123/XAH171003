@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>伪元素</title>
+</head>
+<style>
+	.box{
+		width: 500px;
+		height: 500px;
+		border: 1px solid red;
+	}
+	/*::after 给box插入最后一个内容*/
+	.box::after{
+		width: 100px;
+		height: 100px;
+		content: "我是after";
+	}
+	/*::before 给box插入第一个内容*/
+	.box::before{
+		content: "我是before";
+	}
+	/*给第一个字符设置样式*/
+	h2::first-letter{
+		color: blue;
+		font-size: 30px;
+	}
+	/*给第一行字符设置样式*/
+	h2::first-line{
+		color: red;
+		font-size: 30px;
+	}
+	/*给用户选择的部分设置样式*/
+	h2::selection{
+		color: yellow;
+	}
+</style>
+<body>
+	 <div class="box">
+	 	<p>sjndasjdklajd</p>
+	 </div>
+	 <h2>
+	 	jfijfljlkfjflkjfkl
+	 	<br>
+	 	kljkljlkjlkjlkgfhj
+	 </h2>
+</body>
+</html>

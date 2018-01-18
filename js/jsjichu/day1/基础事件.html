@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>base_evevt</title>
+</head>
+<body>
+	<div id="btn">点我点我</div>
+	<img src="img/xiang16.png" id="img1" alt="">
+	<script>
+	      var img1 = document.getElementById('img1');
+	      console.log(img1.src);         //获取img这个元素的src属性值
+	      img1.src = "img/xiang17.png"; //为元素设置src属性
+	      console.log(img1.src);
+
+	/*根据元素的id获取元素
+	document.getElementById('元素的Id')*/
+
+
+	var ele  =	document.getElementById('btn');
+	console.log(ele);
+
+    //ele绑定点击事件 （function是声明函数的关键字）
+	//  ele.onclick = function(){
+	//  alert(1);
+	//  ele.style.color = '#fff';
+	//  ele.style.background = 'pink';
+	//  ele.style.width = '200px';
+	//  ele.style.height = '200px';
+	//  ele.style.borderRadius ='30px';	
+	// };
+    
+    //鼠标移入
+	ele.onmouseover = function(){
+		ele.style.width = '150px';
+		ele.style.fontSize = '20px';
+		ele.style.color = 'blue';
+	}
+   
+    //鼠标移出
+	ele.onmouseout = function(){
+		 ele.style.color = 'green';
+	}
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#myCanvas2{
+				background: lightsteelblue;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+		<script type="text/javascript">
+		  var mc = document.getElementById('myCanvas2');
+		  var ctx= mc.getContext('2d');	
+		  
+		  /*
+		   线性渐变
+		   ctx.createLinearGradient(x1,y1,x2,y2);
+		   x1,y1:线性渐变的开始点
+		   x2,y2:线性渐变的结束点
+		   g.addColorStop('0.2','red');
+		   在g这个渐变里，red从0.2的位置开始，向两边渲染
+		   */
+		  var g1 = ctx.createLinearGradient(200,400,400,400);
+		  g1.addColorStop('0','dodgerblue');
+		  g1.addColorStop('0.2','pink');
+		  g1.addColorStop('0.4','lightblue');
+		  g1.addColorStop('0.6','lightgreen');
+		  g1.addColorStop('0.8','orange');
+		  g1.addColorStop('1','yellow');
+		  ctx.fillStyle = g1;
+		  ctx.fillRect(100,100,400,400);
+		  ctx.fill();
+		</script>
+	</body>
+</html>

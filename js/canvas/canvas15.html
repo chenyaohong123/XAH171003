@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>径向渐变</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: black;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="800">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+		var ctx= mc.getContext('2d');
+		//移动canvas画布的正中心
+		ctx.translate(400,400);//(400，400)变成了（0，0）点
+//      ctx.beginPath();
+//      ctx.moveTo(0,-400);
+//      ctx.lineTo(0,400);
+//      ctx.moveTo(-400,0);
+//      ctx.lineTo(400,0);
+//      ctx.strokeStyle = '#fff';
+//      ctx.stroke();
+        
+       
+        
+        var p = 0.01;
+        function createBg(){
+        	//清除画布
+        	ctx.clearRect(-400,-400,800,800);
+        	ctx.save();
+        	  p+=0.01;
+        	  //旋转
+        	  ctx.rotate(p*2*Math.PI);
+        	  
+        	ctx.beginPath();
+        ctx.moveTo(0,-400);
+        ctx.lineTo(0,400);
+        ctx.moveTo(-400,0);
+        ctx.lineTo(400,0);
+        ctx.strokeStyle = '#fff';
+        ctx.stroke();  
+        	  
+        	    //绘制轨道
+		ctx.beginPath();
+    		ctx.arc(0,0,180,0,Math.PI*2,false);
+    		ctx.closePath();
+    		ctx.stroke();
+    
+    		ctx.beginPath();
+    		ctx.arc(0,0,280,0,Math.PI*2,false);
+    		ctx.closePath();
+    		ctx.stroke();
+                         
+        //绘制球
+        ctx.beginPath();
+		var g1 = ctx.createRadialGradient(-30,-50,10,0,0,100);
+		g1.addColorStop(0, 'orange');
+		g1.addColorStop(1, 'red');
+		ctx.arc(0,0,80,0,2*Math.PI);
+		ctx.fillStyle = g1;	
+		ctx.fill();
+		
+		ctx.beginPath();
+		var g2 = ctx.createRadialGradient(160,-40,0,180,0,70);
+		g2.addColorStop(0, 'skyblue');
+		g2.addColorStop(1, 'blue');
+		ctx.arc(180,0,50,0,2*Math.PI);
+		ctx.fillStyle = g2;	
+		ctx.fill();
+		
+		ctx.beginPath();
+		var g3 = ctx.createRadialGradient(-30,220,5,0,280,100);
+		g3.addColorStop(0, 'yellow');
+		g3.addColorStop(1, 'orange');
+		ctx.arc(0,280,80,0,2*Math.PI);
+		ctx.fillStyle = g3;	
+		ctx.fill();
+		ctx.restore();
+        }
+        
+        	setInterval(createBg,80);        		
+
+	</script>
+</html>
+

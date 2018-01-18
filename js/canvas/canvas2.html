@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#myCanvas1{
+				background: lightsteelblue;
+				/*浏览器没有给canvas设置display属性，我们可以根据编码的需求，自主的为canvas设置display。*/
+				display:block;
+				margin: 0 auto;
+				
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas1" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧！
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		/*我们要使用js代码来在canvas画布上作画*/
+		//获取canvas
+		var mc = document.getElementById('myCanvas1');
+		//获取canvas画笔
+		var ctx= mc.getContext('2d');
+		//在使用canvas作画时，需要使用到坐标点，canvas画布的(0,0)点在canvas的左上角
+		ctx.beginPath();//开始一条路径
+		ctx.moveTo(100,100);//画一条线的开始位置
+		ctx.lineTo(200,200);//第二个点
+		ctx.lineTo(400,200);//第三个点
+		ctx.lineTo(500,100);//第四个点
+		ctx.closePath();//关闭路径
+		ctx.strokeStyle = '#f00';//改变画笔的颜色
+		ctx.lineWidth = '10';//设置画笔的粗细，数值
+		ctx.stroke();//准备工作就绪，画线
+		
+		ctx.moveTo(100,400);
+		ctx.lineTo(200,400);
+		ctx.lineTo(200,500);
+		ctx.lineTo(100,500);
+		ctx.lineTo(200,450);
+		ctx.closePath();
+		ctx.stroke();
+	</script>
+</html>

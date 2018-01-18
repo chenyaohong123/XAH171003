@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>飞翔的小鸟</title>
+		<style>
+			@keyframes mov {
+				0% {
+					transform: translateY(0px);
+				}
+				25% {
+					transform: translateY(-5px);
+					background: url(img/bird1.png);
+				}
+				50% {
+					transform: translateY(5px);
+					background: url(img/bird0.png);
+				}
+				75% {
+					transform: translateY(-5px);
+					background: url(img/bird1.png);
+				}
+				100% {
+					transform: translateY(5px);
+					background: url(img/bird0.png);
+				}
+			}
+			
+			@-webkit-keyframes scollDivmov {
+				from {
+					left: 0;
+				}
+				to {
+					left: -400px;
+				}
+			}
+			
+			#wrap {
+				width: 400px;
+				height: 475px;
+				position: relative;
+				margin: 0 auto;
+				overflow: hidden;
+				/*background:rgb(221,218,148) ;*/
+			}
+			
+			#pipeWrap {
+				width: 400px;
+				height: 475px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: url(img/bg.jpg);
+			}
+			
+			.pipe {
+				width: 62px;
+				height: 450px;
+				position: absolute;
+				top: 0;
+				left: 400px;
+				z-index: 9;
+			}
+			
+			.topItem {
+				width: 62px;
+				position: absolute;
+				top: 0px;
+				background: url(img/up_mod.png);
+			}
+			
+			.bottomItem {
+				width: 62px;
+				position: absolute;
+				bottom: 12px;
+				background: url(img/down_mod.png);
+			}
+			
+			.topHead {
+				width: 62px;
+				height: 60px;
+				position: absolute;
+				bottom: 0;
+				background: url(img/up_pipe.png);
+			}
+			
+			.bottomHead {
+				width: 62px;
+				height: 60px;
+				position: absolute;
+				top: 0;
+				background: url(img/down_pipe.png);
+			}
+			
+			#bird1 {
+				width: 39px;
+				height: 26px;
+				background: url(img/bird0.png);
+				position: absolute;
+				left: 300px;
+				top: 200px;
+				z-index: 10;
+				animation: mov 2s linear infinite;
+				display: block;
+			}
+			
+			#bird2 {
+				width: 39px;
+				height: 29px;
+				background: url(img/bird0.png);
+				position: absolute;
+				left: 60px;
+				top: 210px;
+				z-index: 10;
+				display: none;
+			}
+			
+			#score {
+				width: 87px;
+				height: 38px;
+				position: absolute;
+				top: 20px;
+				left: 180px;
+				z-index: 12;
+			}
+			
+			#scollDiv {
+				width: 800px;
+				height: 15px;
+				background: url(img/banner.jpg);
+				position: absolute;
+				bottom: 37px;
+				left: 0;
+				z-index: 10;
+				animation: scollDivmov 5s linear infinite;
+			}
+			
+			#gamestart {
+				width: 200px;
+				height: 200px;
+				position: relative;
+				left: 100px;
+				top: 200px;
+				display: block;
+			}
+			
+			#gamestart1 {
+				width: 190px;
+				height: 77px;
+				position: absolute;
+				left: 0px;
+				top: -30px;
+				background: url(img/head.jpg);
+				z-index: 10;
+			}
+			
+			#gamestart2 {
+				width: 190px;
+				height: 40px;
+				position: absolute;
+				left: 0px;
+				top: 70px;
+				z-index: 10;
+			}
+			
+			#span1 {
+				width: 85px;
+				height: 30px;
+				background: url(img/start.jpg);
+				float: left;
+			}
+			
+			#span2 {
+				width: 85px;
+				height: 30px;
+				background: url(img/submit.jpg);
+				float: right;
+			}
+			
+			#gameover {
+				width: 400px;
+				height: 400px;
+				position: absolute;
+				left: 0px;
+				top: 50px;
+				display: none;
+			}
+			
+			#gameover1 {
+				width: 220px;
+				height: 40px;
+				position: absolute;
+				left: 81px;
+				top: -100px;
+				background: url(img/game_over.jpg);
+				z-index: 10;
+			}
+			
+			#gameover2 {
+				width: 269px;
+				height: 133px;
+				position: absolute;
+				/*left: 63px;*/
+				left: -269px;
+				top: 116px;
+				background: url(img/message.jpg);
+				z-index: 10;
+			}
+			
+			#gameover3 {
+				width: 96px;
+				height: 30px;
+				position: absolute;
+				left: 150px;
+				top: 400px;
+				background: url(img/ok.jpg);
+				z-index: 10;
+			}
+			
+			#gameover4 {
+				width: 96px;
+				height: 30px;
+				position: absolute;
+				left: 170px;
+				top: 30px;
+				z-index: 11;
+				font-size: 29px;
+				color: orange;
+				text-align: center;
+			}
+			
+			#gameover5 {
+				width: 96px;
+				height: 30px;
+				position: absolute;
+				left: 170px;
+				top: 90px;
+				z-index: 11;
+				font-size: 29px;
+				color: orange;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<div id="wrap">
+		<!--分数-->
+		<div id="score"></div>
+		<!--滚动条-->
+		<div id="scollDiv"></div>
+		<!--管道容器-->
+		<div id="pipeWrap">
+			<div class="pipe"></div>
+		</div>
+		<!--小鸟-->
+		<div id="bird1"></div>
+		<div id="bird2"></div>
+		<!--游戏开始-->
+		<div id="gamestart">
+			<div id="gamestart1"></div>
+			<div id="gamestart2">
+				<span id="span1"></span>
+				<span id="span2"></span>
+			</div>
+		</div>
+		<!--游戏结束-->
+		<div id="gameover">
+			<div id="gameover1"></div>
+			<div id="gameover2">
+				<div id="gameover4"></div>
+				<div id="gameover5"></div>
+			</div>
+			<div id="gameover3"></div>
+
+		</div>
+	</div>
+
+	<body>
+		<script>
+			var gamestart1 = document.getElementById('gamestart1');
+			var gamestart = document.getElementById('gamestart');
+			var span1 = document.getElementById('span1');
+			var bird = document.getElementById('bird');
+			var scollDiv = document.getElementById('scollDiv');
+			var scoreDiv = document.querySelector('#score');
+			var pipeWrap = document.querySelector('#pipeWrap');
+			var gameover1 = document.getElementById('gameover1');
+			var gameover = document.getElementById('gameover');
+			var gameover2 = document.getElementById('gameover2');
+			var gameover3 = document.getElementById('gameover3');
+			var gameover4 = document.getElementById('gameover4');
+			var gameover5 = document.getElementById('gameover5');
+			var bird2 = document.getElementById('bird2');
+			var bird1 = document.getElementById('bird1');
+			var pipe1 = document.getElementsByClassName('pipe');
+			var score = 0;
+			var max;
+			var speed = 1;
+			var time = -30;
+			//开始界面上下跳
+			var gamestart1Time = setInterval(function() {
+				if(time >= -30) {
+					speed = -speed;
+				}
+				if(time <= -45) {
+					speed = -speed;
+				}
+				time += speed;
+				gamestart1.style.top = time + 'px';
+			}, 100);
+			//start点击开始
+			span1.onclick = function() {
+				gamestart.style.display = 'none';
+				bird2.style.display = 'block';
+				bird1.style.display = 'none';
+				bird2.style.left = '60px';
+				bird2.style.top = '210px';
+				birdDown();
+				createPipeTime();
+				gameover1.style.top = '-100px';
+				gameover2.style.left = '-269px';
+				gameover3.style.top = '400px';
+
+			}
+			var birdBg1;
+			var downTimer; //小鸟下降
+			function birdDown() {
+				bird2.style.background = 'url(img/down_bird0.png)';
+				//	     birdBg1 = setInterval(function(){
+				//	    var num1 = 0;
+				//	 	bird2.style.background = 'url(img/down_bird'+num1+'.png)';
+				//	 	num1 ++;
+				//	 	if(num1 == 1){
+				//	 	 num1 = 0;	
+				//	 	}
+				//	 	},200);
+				downTimer = setInterval(function() {
+					bird2.style.top = bird2.offsetTop + 1 + 'px';
+					//小鸟到达底部结束游戏
+					if(bird2.offsetTop >= wrap.offsetHeight - 79) {
+						clearInterval(downTimer);
+						clearInterval(createPipeTimer);
+						gameover.style.display = 'block';
+						wrap.onclick = null;
+						gameover4.innerText = score;
+						//	 			max = gameover5.innerText;
+						//			    maxnum = score > max ? score : max ;
+						//			    gameover5.innerText = max > maxnum ? max:maxnum;
+						var maxScore1 = localStorage.getItem('maxScore');
+						if(maxScore1 == undefined) {
+							localStorage.setItem('maxScore', score);
+						} else {
+							if(maxScore1 > score) {} else {
+								localStorage.setItem('maxScore', score);
+							}
+						}
+						gameover5.innerText = maxScore1;
+
+						clearInterval(bird2.offsetLeft);
+						clearInterval(createPipeTimer);
+						gameover12();
+						gameover22();
+						gameover32();
+
+						gameover3.onclick = function() {
+							bird1.style.display = 'block';
+							bird2.style.display = 'none';
+							gamestart.style.display = 'block';
+							gameover.style.display = 'none';
+							pipeWrap.innerHTML = '';
+							score = 0;
+							scoreDiv.innerText = '';
+							upBird();
+						}
+
+					}
+				}, 10)
+			}
+			var upTimer; //小鸟上升
+			function upBird() {
+				wrap.onclick = function() {
+					var onceTop = 30;
+					var nowTop = bird2.offsetTop;
+					var endTop = nowTop - onceTop;
+					clearInterval(downTimer);
+					clearInterval(upTimer);
+					//	 	clearInterval(birdBg1);
+					bird2.style.background = 'url(img/up_bird1.png)';
+					//	 	var birdBg2 = setInterval(function(){
+					//	    var num = 0;
+					//	 	bird2.style.background = 'url(img/up_bird'+num+'.png)';
+					//	 	num ++;
+					//	 	if(num == 1){
+					//	 	 num = 0;	
+					//	 	}
+					//	 	},100);
+
+					upTimer = setInterval(function() {
+						bird2.style.top = bird2.offsetTop - 1 + 'px';
+						if(bird2.offsetTop == endTop) {
+							clearInterval(upTimer);
+							birdDown();
+						}
+
+						if(bird2.offsetTop < 0) {
+							clearInterval(upTimer);
+							bird2.style.top = '0px';
+							birdDown();
+						}
+					}, 10);
+				}
+			}
+			upBird();
+			//随机管道高度函数
+			function randomNum(x, y) {
+				return Math.round(Math.random() * (y - x + x));
+			}
+			//创建一个管道
+			var pipesObj;
+			var max;
+            
+			function createPipe() {
+				var onePipe = document.createElement('div');
+				onePipe.className = 'pipe';
+				var topHeight = randomNum(230, 240); //上管道高度
+				var bottomHeight = 300 - topHeight; //下管道高度
+				onePipe.innerHTML = '<div class="topItem" style="height:' + topHeight + 'px;"><span class="topHead"></span></div><div class="bottomItem" style = "height:' + bottomHeight + 'px;" ><span class="bottomHead"></span></div>';
+				pipeWrap.appendChild(onePipe);
+
+				onePipe.leftTimer = setInterval(function() {
+					onePipe.style.left = onePipe.offsetLeft - 2 + 'px';
+
+					pipesObj = document.querySelectorAll('.pipe>div'); //集合
+
+					for(var i = 0; i < 2; i++) {
+						if(bird2.offsetLeft + bird2.offsetWidth >= onePipe.offsetLeft &&
+							bird2.offsetLeft <= onePipe.offsetLeft + pipesObj[i].offsetWidth &&
+							bird2.offsetTop <= pipesObj[i].offsetTop + pipesObj[i].offsetHeight &&
+							pipesObj[i].offsetTop <= bird2.offsetTop + bird2.offsetHeight) {
+							clearInterval(downTimer);
+							clearInterval(upTimer);
+							gameover.style.display = 'block';
+							gameover1.style.top = '-100px';
+							gameover2.style.left = '-269px';
+							gameover3.style.top = '400px';
+							gameover12();
+							gameover22();
+							gameover32();
+							wrap.onclick = null;
+							gameover4.innerText = score;
+							//	 				 max = gameover5.innerText;
+							//			         maxnum = score > max ? score : max ;
+							//			         gameover5.innerText = max > maxnum ? max:maxnum;
+							bird2.style.top = wrap.offsetHeight - 83 + 'px';
+							var maxScore1 = localStorage.getItem('maxScore');
+							if(maxScore1 == undefined) {
+								localStorage.setItem('maxScore', score);
+							} else {
+								if(maxScore1 > score) {} else {
+									localStorage.setItem('maxScore', score);
+								}
+							}
+							gameover5.innerText = maxScore1;
+
+
+							for(var i = 0; i < pipe1.length; i++) {
+								clearInterval(createPipeTimer);
+								clearInterval(pipe1[i].leftTimer);
+							}
+
+							gameover3.onclick = function() {
+								bird1.style.display = 'block';
+								bird2.style.display = 'none';
+								gamestart.style.display = 'block';
+								gameover.style.display = 'none';
+								pipeWrap.innerHTML = '';
+								score = 0;
+								scoreDiv.innerText = '';
+								upBird();
+							}
+
+						}
+					}
+
+					//根据管道的left值，计算分数的累加
+					if(onePipe.offsetLeft == 18) {
+
+						score += 1;
+						clacScore();
+
+					}
+
+					if(onePipe.offsetLeft == -onePipe.offsetWidth) {
+						clearInterval(onePipe.leftTimer); //清除计时器
+						onePipe.remove(); //移除此节点
+					}
+				}, 15);
+			}
+
+			//每个一段时间 创建一个管道
+			var createPipeTimer;
+
+			function createPipeTime() {
+				createPipeTimer = setInterval(function() {
+					createPipe();
+				}, 1800)
+			}
+
+			function clacScore() {
+				scoreDiv.innerText = '';
+				var newImg;
+				//将分数截取成单个的数组
+				var scoreArr = String(score).split('');
+				console.log(scoreArr);
+				for(var i = 0; i < scoreArr.length; i++) {
+					newImg = new Image; //创建图片
+					newImg.src = 'img/' + scoreArr[i] + '.jpg'; //拼接路径
+					scoreDiv.appendChild(newImg);
+				}
+			}
+
+			var gameover21;
+
+			function gameover22() {
+				gameover21 = setInterval(function() {
+					gameover2.style.left = gameover2.offsetLeft + 2 + 'px';
+					if(gameover2.offsetLeft == 63) {
+						clearInterval(gameover21);
+					}
+				}, 0);
+			}
+
+			var gameover11;
+
+			function gameover12() {
+				gameover11 = setInterval(function() {
+					gameover1.style.top = gameover1.offsetTop + 2 + 'px';
+					if(gameover1.offsetTop == 50) {
+						clearInterval(gameover11);
+					}
+				}, 0);
+			}
+
+			var gameover31;
+
+			function gameover32() {
+				gameover31 = setInterval(function() {
+					gameover3.style.top = gameover3.offsetTop - 1 + 'px';
+					if(gameover3.offsetTop == 260) {
+						clearInterval(gameover31);
+					}
+				}, 0);
+			}
+		</script>
+	</body>
+
+</html>

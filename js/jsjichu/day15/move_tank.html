@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>移动坦克</title>
+	<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+		body{
+			background: black;
+		}
+		#img1{
+			width: 50px;
+			height: 50px;
+			position: fixed;
+			bottom: 200px;
+			left: 200px;
+		}
+	</style>
+</head>
+<body>
+	<img src="img/p1tankU.gif" alt="" id="img1" >
+	<script>
+	var img1 = document.querySelector('#img1');
+	document.onkeydown = function(){
+	var e = event || window.event;
+	var  windowHeight = window.innerHeight;
+	var  windowWidth  = document.getElementsByTagName('body')[0].offsetWidth;
+	// console.log(windowHeight);
+	// if(e&&e.keyCode ==37){
+	// 	img1.src = 'img/p1tankL.gif';
+	// 	var left = img1.offsetLeft ;
+	// 	left  -= img1.offsetWidth;
+	// }	
+	
+	// if(e&&e.keyCode ==38){
+	// 	img1.src = 'img/p1tankU.gif';
+	// 	var top = img1.offsetTop ;
+	// 	top  -= img1.offsetHeight;
+	// }	
+	
+	// if(e&&e.keyCode ==39){
+	// 	img1.src = 'img/p1tankR.gif';
+	// 	var left = img1.offsetLeft ;
+	// 	left  += img1.offsetWidth;
+	// }	
+	
+	// if(e&&e.keyCode ==40){
+	// 	img1.src = 'img/p1tankD.gif';
+	// 	var top = img1.offsetTop ;
+	// 	top  += img1.offsetHeight;
+	// }
+	// img1.style.left = left +'px';
+	// img1.style.top = top + 'px';
+	// }	
+	
+    //方法2
+    switch(e.keyCode){
+    	case 37:
+    	img1.src = 'img/p1tankL.gif';
+    	img1.style.left = img1.offsetLeft -  10 + 'px';
+    	break;
+    	case 38:
+    	img1.src = 'img/p1tankU.gif';
+    	img1.style.top  = img1.offsetTop  -  10  + 'px';
+    	break;
+    	case 39:
+    	img1.src = 'img/p1tankR.gif';
+    	img1.style.left = img1.offsetLeft +  10 + 'px';
+    	break;
+    	case 40:
+    	img1.src = 'img/p1tankD.gif';
+    	img1.style.top  = img1.offsetTop  +  10 + 'px';
+    	break;
+    }
+    
+    if(img1.offsetTop<=0){
+    	img1.style.top = 0 + 'px';
+    }
+    if(img1.offsetLeft<=0){
+    	img1.style.left = 0 + 'px';
+    }
+    if(img1.offsetLeft>windowWidth-img1.offsetWidth){
+    	img1.style.left = windowWidth-img1.offsetWidth + 'px';
+    }
+    if(img1.offsetTop >windowHeight - img1.offsetHeight){
+       img1.style.top = windowHeight - img1.offsetHeight + 'px';
+    }
+}
+	</script>
+</body>
+</html>

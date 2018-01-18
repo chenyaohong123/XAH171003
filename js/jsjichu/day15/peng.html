@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>碰撞检测</title>
+	<style>
+	#box1,#box2{
+     width: 100px;
+     height: 100px;
+     position: fixed;
+	}
+	#box1{
+		background: pink;
+		left: 10px;
+		top: 10px;
+	}
+	#box2{
+		background: lightblue;
+        left: 400px;
+        top: 400px;
+	}
+	</style>
+</head>
+<body>
+	<div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+    var  box1 = document.querySelector('#box1');
+    var  box2 = document.querySelector('#box2');
+
+    box1.onmouseover = function(){
+    	document.onmousemove = function(){
+    		var e = event || window.event;
+    		box1.style.left = e.clientX - 50 + 'px';
+    		box1.style.top  = e.clientY - 50 + 'px';
+             
+
+    		//碰撞检测
+    		/*
+    		左: box1.offsetLeft +  box1.offsetWidth >= box2.offsetLeft;
+    		右: box1.offsetLeft <= box2.offsetLeft   + box2.offsetWidth;
+    		上: box1.offsetTop  +  box1.offsetHeight>= box2.offsetTop;
+    		下: box1.offsetTop  <= box2.offsetTop + box2.offsetHeight;
+    		 */
+    		if( box1.offsetLeft +  box1.offsetWidth  >= box2.offsetLeft&&
+    			box1.offsetLeft <= box2.offsetLeft   + box2.offsetWidth&&
+    			box1.offsetTop  +  box1.offsetHeight >= box2.offsetTop&&
+    			box1.offsetTop  <= box2.offsetTop    + box2.offsetHeight){
+    			console.log('碰撞');
+    		}
+    	}
+    }
+    </script>
+</body>
+</html>

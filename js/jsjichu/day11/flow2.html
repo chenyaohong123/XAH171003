@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流简单版</title>
+	<style>
+	ul{
+      	padding: 0;
+      	border:1px solid #000;
+      	margin: 16px auto;
+      	font-size: 0;
+      	text-align:center;
+      }
+   ul li{
+		width: 200px;
+		padding: 10px;
+		list-style:none;
+		display: inline-block;
+		font-size: 5rem;
+		vertical-align: top;
+	 }
+	 ul li div{
+	 	text-align: center;
+	 	color: #fff;
+	 	margin-bottom: 15px;
+
+	 }
+	</style>
+</head>
+<body>
+	<ul id = 'list'>
+    </ul>
+
+    <script>
+    	//获取元素
+    	var list = document.querySelector('#list');
+    	var heightArr = [];//高度数组
+    	var liArr     = [];//所有li标签数组
+        
+
+        function createLi(){
+        list.innerHTML = '';
+        heightArr = [];
+        liArr = [];
+    	//计算li标签的数量
+    	var windowWidth = document.getElementsByTagName('body')[0].offsetWidth ;//窗口宽度
+    	var liNum = Math.floor(windowWidth/220);
+    	for(var i=0;i<liNum;i++){
+    	var newLi = document.createElement('li');
+    	list.appendChild(newLi);
+    	heightArr.push(0);
+    	liArr.push(newLi);
+      }
+    }    
+    createLi();
+
+
+        function randomNum(x,y){
+        	return Math.round(Math.random()*(y-x)+x);
+        }
+    	
+    	function getMinIndex(){
+    		//找到heightArr里的最小值
+    		//获取这个最小值所对应的下标
+    		//返回这个值
+    		var min;
+    		for(var i=0;i<heightArr.length;i++){
+            min = heightArr[i] > min ? min : heightArr[i];
+    		}
+    		var minIndex = heightArr.indexOf(min);
+    		return minIndex;
+    	}
+
+      
+        function createItem(){
+        	//创建div
+        	for(var i  = 0; i< 50;i++){
+            var newDiv = document.createElement('div');
+            var newHeight = randomNum(100,300);
+            newDiv.style.height = newHeight + 'px';
+            newDiv.style.background = 'rgb('+randomNum(0,255) +','+ randomNum(0,255)+ ',' + randomNum(0,255) + ')';
+            newDiv.innerText = i;
+            newDiv.style.lineHeight = newHeight + 'px';
+            var index = getMinIndex();
+            liArr[index].appendChild(newDiv);
+            heightArr[index] += newHeight;	
+        	}
+        }
+        createItem();
+        //浏览器窗口大小改变触发函数
+        window.onresize = function(){
+        createLi();
+        createItem();
+        }
+ 
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>分支语句联系</title>
+</head>
+<body>
+	<div style="width: 100px; height: 100px; background:pink;" id="box"; flag="true";></div>
+	<input type="number" value="" id="c">
+	<button id="d">判断</button>
+	<input type="text" value="" id="e">
+	<button id="f">判断</button>
+	<br>
+	<input type="text" value="" id="h">
+	<button id="i">判断</button>
+
+	<div>
+		<img src="img/xiang2.jpg" style="width: 100px;height: 100px;" alt="" id="k">
+		<button id="l">放大1倍</button>
+	</div>
+
+	<script>
+	 var box = document.getElementById('box');
+
+	 //根据js的变量来控制代码块的执行
+	 //     var changeFlag = true;
+	 //     box.onclick =function(){
+  	 //     if(changeFlag){
+  	 //     box.style.width  = '200px';
+  	 //     box.style.height = '200px';
+  	 //     changeFlag =  false;
+  	 //       }
+  	 //     else{
+  	 //     box.style.width  = '100px';
+  	 //     box.style.height = '100px';
+  	 //     changeFlag =  true;
+  	 //       }
+  	 //    }
+  	 
+  	 //为元素设置HTML自定义属性
+  	 box.onclick = function(){
+  	 	//获取元素的自定义属性 ele.getAttribute
+         var thisFlag = box.getAttribute('flag');
+        //这里获取到的thisFlag是一个字符串（true == 'true' 结果为false, false == 'false' 的结果也为false）;
+       
+         if(thisFlag == 'true'){
+         	box.style.width = '200px';
+         	box.style.height = '200px';
+        //设置元素的属性值 ele.setAttribute('属性','值');
+         	box.setAttribute('flag', 'false');
+         }
+         else{
+         	box.style.width = '100px';
+         	box.style.height = '100px';
+         	box.setAttribute('flag','true');
+         }
+  	 }
+
+  	 //申明3个变量
+  	 var a = 10,  b = 20  , c = 5;
+  	 var max ;
+  	 //三目运算符：
+  	 //表达式 1？ 表达式2 : 表达式3；
+  	 //判断表达式1的值（布尔类型）
+  	 //为真，返回表达式2的值，为假返回表达式3的值。
+  	 max = a > b ? a : b;
+  	 max = max > c ? max:c;
+  	 console.log(max);
+  	//比较
+    //   if (a>b){
+    //    max = a;
+    // }
+    //    else{
+    //     max =b;
+    //  }
+    
+    var a = 3;//0011
+    var b = 5;//0101
+    a = a ^ b;//异或  0110
+    console.log('a');
+    b = a ^ b;//0011
+    a = a ^ b;//0101
+
+    var c = document.getElementById('c');
+    var d = document.getElementById('d');
+    d.onclick = function(){
+    	var year = c.value;
+    	if(year == ""){
+    		alert("请输入正确的年份");
+    	}
+       else{
+       	//a || (b && c)
+    	if(year%400 == 0 || (year%4 ==0 && year%100 != 0)){
+           alert('闰年');
+    	}
+    	else{
+    		alert('平年');
+    	}
+     }
+    
+   }
+
+     true && true || true && false//true 且的优先级比或要高,如果优先级相同，先算且，后算或.
+
+     //判断成绩 >90分优秀   80~90良好  70~80中等  60~70及格  60以下不及格
+     var e = document.getElementById('e');
+     var f = document.getElementById('f');
+     f .onclick = function(){
+     	var g = e.value;
+     	if (90<= g && g<=100) {
+           alert('优秀');
+     	}
+     	else if(80<=g && g<90){
+     		alert('良好');
+     	}
+     	else if(70<=g && g<80){
+     		alert('中等');
+     	}
+     	else if(60<=g && g<70){
+     		alert('及格');
+     	}
+     	else if (g < 60) {
+     		alert('不及格');
+     	}
+     }
+
+     //判断奇偶数
+     var h = document.getElementById('h');
+     var i = document.getElementById('i');
+     i.onclick = function(){
+     	var h1 = Math.round(h.value);
+     	var res = h1 % 2 == 0 ? '偶数': '奇数';
+     	alert(res);
+     }
+
+
+     //放大图片
+     var k = document.getElementById('k');
+     var l = document.getElementById('l');
+     // l.onclick = function(){
+     // var imgWidth = parseInt(k.style.width);//将100px取整为100（number类型）
+     // var imgHeight = parseInt(k.style.height);
+     // if(imgWidth<1000){
+     // 	 k.style.width = imgWidth * 2 + 'px';
+     // 	 k.style.height = imgHeight * 2 + 'px';
+     // }	
+     // }
+     
+     var scale_ = 0;
+     k.onclick = function(){
+     	scale_++;
+     	//字符串和变量拼接：字符串用引号引起来，变量直接使用变量名，用加号将他们相连；
+     	k.style.transform = 'scale('+ scale_ +')';
+     }
+	</script>
+</body>
+</html>

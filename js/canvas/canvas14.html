@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>径向渐变</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: black;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+		var ctx= mc.getContext('2d');
+		/*
+		 镜像渐变：
+		 ctx.createRadialGradient(x1,y1,r1,x2,y2,r2);
+		 x1,y1:起始圆的圆心位置
+		 r1：起始圆的半径
+		 x2，y2：结束圆的圆心位置
+		 r2：结束圆的半径
+		 
+		 起始圆和结束圆划分了此次径向渐变的区域，addColorStop添加的颜色，是添加在这个区域里的。
+		 要使用径向渐变填充区域，要填充的区域和径向渐变的区域位置必须保持关联，否则，使用不到径向渐变。
+		 */
+		var g1 = ctx.createRadialGradient(200,250,50,200,250,150);
+		g1.addColorStop(0, 'rgb(255,0,0)');
+		g1.addColorStop(0.5, 'rgb(0,255,0)');
+		g1.addColorStop(1, 'rgb(0,0,255)');
+		ctx.fillStyle = g1;
+		ctx.arc(200,250,152,0,2*Math.PI);
+		ctx.fill();
+	</script>
+</html>

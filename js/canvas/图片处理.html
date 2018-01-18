@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对图片的处理</title>
+		<style type="text/css">
+			#myCanvas2{
+				background:black;
+				display:block;
+				margin: 0 auto;
+			}
+			#img1{
+				width: 800px;
+				height: 600px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+		<img src="011.jpg" alt="" id="img1"/>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+	    var ctx= mc.getContext('2d');
+	    var img = document.getElementById('img1');
+	    
+	    //将这张图片绘制到canvas上
+	    //为图片异步加载导致不能绘制，要将绘制过程放在img的onload事件中
+	    img.onload = function(){
+	    	/*
+	    	 * canvas对于图片的操作 ：绘制图片
+	    	 * ctx.drawImage(imgObj,x,y);
+	    	 * imgObj：图片对象
+	    	 * x，y:在canvas上绘制图片的坐标(canvas上图片的左上角)
+	    	 * 
+	    	 * ctx.drawImage(imgObj，x，y，width，height)；
+	    	 * x，y:在canvas上绘制图片的坐标(canvas上图片的左上角)
+	    	 * width,height:图片在canvas上的宽高(即图片铺满规定区域)
+	    	 * 
+	    	 * ctx.drawImage(imgObj，原图开始裁剪位置的x坐标，原图开始裁剪位置y坐标，原图裁剪的宽度，原图裁剪的高度，canvas上开始绘制位置x坐标，canvas上开始绘制图片y坐标，canvas上图片宽度，canvas上图片高度)；
+	    	 * 
+	    	 * canvas绘制图片不会按照经过css样式修饰后的图片信息绘制，会按照图片原本的信息绘制。
+	    	 */
+//	    	ctx.drawImage(img,100,100);
+	    	ctx.drawImage(img,0,0,400,400);
+//      	ctx.drawImage(img,200,200,600,400,100,100,600,400);
+
+        //获取图片在canvas上的每一个像素的元素信息
+        var imgDate = ctx.getImageData(0,0,400,400);
+        
+        var px = imgDate.data;
+        for(var i =0;i<px.length;i+=4){
+        	var r = px[i];
+        	var g = px[i+1];
+        	var b = px[i+2];
+//      	//将像素值做反色处理
+//      	px[i] = 255 -r;
+//      	px[i+1] = 255 - g;
+//      	px[i+2]= 255 -b;
+        //将像素值做灰度处理
+//      var huidu = (r+g+b)/3;
+//      px[i] = huidu;
+//      px[i + 1] = huidu;
+//      px[i + 2] = huidu;
+        //加深颜色处理
+        px[i] = r - 50;
+        px[i + 1] = g - 50;
+        px[i + 2] = b - 50;
+        //美白处理
+        px[i] = r + 50;
+        px[i + 1] = g + 50;
+        px[i + 2] = b + 50;
+        }
+        ctx.putImageData(imgDate,400,0);
+	    }
+	   
+	</script>
+</html>

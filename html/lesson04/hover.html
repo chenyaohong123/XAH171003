@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>hover</title>
+</head>
+<style>
+	.box{
+		width: 500px;
+		border: 1px solid red;
+	}
+	.box1{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+	}
+	.box2{
+		width: 200px;
+		height: 200px;
+		background-color: pink;
+	}
+	/*设置鼠标悬停在格子上的样式;
+      同级兄弟盒子不能互相指定hover效果，如果希望实现鼠标移入一个盒子范围让另一个盒子发生效果的改变，需要让2个盒子建立联系（两个盒子有共同的父级；或者其中一个盒子是另一个盒子的父级）。
+      只有当鼠标进入父级范围内的时候才能够让子集去发生样式改变，子集不能让父级发生样式改变。
+	*/
+	.box1:hover{
+		width: 200px;
+	}
+	.box:hover .box2{
+		background-color: blue;
+	}
+	/*.box2:hover{
+		background-color: black;
+	}*/
+	.wrap{
+		width: 100px;
+		margin: 20px;
+	}
+	.wrap a{
+		display: block;
+		text-align: center;
+		color: black;
+	}
+	.pullDown {
+		text-decoration: none;
+		margin-top: 20px;
+		border: 1px solid gray;
+		display: none;
+		box-shadow: 0 0 4px gray;
+	}
+	.wrap:hover .pullDown{
+		display: block;
+	}
+	/*选择器1>选择器2{样式}；
+      选择器1是选择器2的父级；
+      选择器2是选择器1的直接子级（大儿子）；
+	*/
+	.wrap>a:hover{
+		color: blue;
+	}
+	.pullDown a:hover{
+		background: blue;
+		color: white;
+	}
+</style>
+<body>
+	<div class="box">
+		<div class="box1">box1</div>
+		<div class="box2">box2</div>
+	</div>
+	<!-- 模拟百度hover效果 -->
+	<div class="wrap">
+		<a href="">设置</a>
+		<div class="pullDown">
+			<a href="">搜索设置</a>
+			<a href="">高级搜索</a>
+			<a href="">关闭预测</a>
+			<a href="">搜索历史</a>
+		</div>
+	</div>
+</body>
+</html>

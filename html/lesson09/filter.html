@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>滤镜</title>
+</head>
+<style>
+	img{
+		width: 240px;
+	}
+	.theImg1{
+		/*灰度图像，0~100%,100%图片全部变为灰度图像*/
+		-webkit-filter:grayscale(100%);
+	}
+	.theImg2{
+		/*褐色图像，0~100%，100%图片完全变成深褐色*/
+		-webkit-filter:sepia(100%);
+	}
+	.theImg3{
+		/*饱和度，取值可以超过100%*/
+		-webkit-filter:saturate(200%);
+	}
+	.theImg4{
+		/*hue-rotate：用来改变图片的色相
+		deg代表图片的角度*/
+		-webkit-filter:hue-rotate(270deg);
+	}
+	.theImg5{
+		/*invert：取值0%~100%，图片效果就像是底片的效果*/
+		-webkit-filter:invert(60%) hue-rotate(270deg) saturate(400%);
+	}
+	.theImg6{
+		/*opacity：透明度*/
+		-webkit-filter:opacity(0.5);
+	}
+	.theImg7{
+		/*bright：改变图片的亮度，当图片的值超过100%时，图片会更亮*/
+		-webkit-filter:brightness(200%);
+	}
+	.theImg8{
+		/*contrast：图片对比度*/
+		-webkit-filter:contrast(200%);
+	}
+	.theImg8{
+		/*blur：改变图片清晰度*/
+		-webkit-filter:blur(10px);
+	}
+	.theImgsss{
+		/*drop-shadow和box-shadow效果一样*/
+		-webkit-filter:drop-shadow(0 0 10px green);
+	}
+
+</style>
+<body>
+	<img src="img/dlrb.jpeg" alt="">
+	<img class="theImg" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg1" src="img/dlrb.jpeg" alt="" id="dImg">
+	<input type="range" id="dlrb">
+	<img class="theImg2" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg3" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg4" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg5" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg6" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg7" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg8" src="img/dlrb.jpeg" alt="" id="dImg">
+	<img class="theImg9" src="img/dlrb.jpeg" alt="" id="dImg">
+	
+	
+</body>
+<script>
+	var dlrb = document.getElementById('dlrb');
+	var dImg = document.getElementById('dImg');
+	dlrb.oninput = function(){
+		dImg.style.filter = 'grayscale(' + dlrb.value + '%)';
+	}
+</script>
+</html>

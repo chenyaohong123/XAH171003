@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+        <style type="text/css">
+			#myCanvas2{
+				background: white;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	<body>
+		<canvas id="myCanvas2" width="1000" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var context = document.getElementById('myCanvas2').getContext('2d');
+
+		function drawGrid(color, stepx, stepy) {
+			function drawTwoArcs() {
+				context.beginPath();
+				context.arc(300, 190, 150, 0, Math.PI * 2, false); //Outer:CCW
+				context.arc(300, 190, 100, 0, Math.PI * 2, true);  //Inner:CW
+				context.fill();
+				context.shadowColor = undefined;
+				context.shadowOffsetX = 0;
+				context.shadowOffsetY = 0;
+				context.stroke();
+
+			function draw() {
+					context.clearRect(0, 0, context.canvas.width,context.canvas.height);
+				}
+			}
+			drawGrid('lightgray', 10, 10);
+			context.save();
+			context.shadowColor = 'rgba(0,0,0,0.8)';
+			context.shadowOffsetX = 12;
+			context.shadowOffsetY = 12;
+			context.shadowBlur = 15;
+			drawTwoArcs();
+			context.restore();
+			
+			context.fillStyle = 'rgba(100,140,230,0.5)';
+		context.strokeStyle = context.fillStyle;
+		draw();
+		}
+
+		
+	</script>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘事件</title>
+</head>
+<body>
+	<script>
+		/*
+		  键盘事件：
+		  (1)keypress:按下键盘上的某一个键并抬起的时候触发，只对数字键，字母键以及部分功能键起作用
+		  (2)keydown :按下键盘的时候触发，对键盘上所有的键都有效。
+		  (3) keyup  :按下某一个键，抬起的时候触发。
+		 */
+		// document.onkeypress = function(){
+		// 	var  e = event || window.event;
+		// 	console.log(e);
+		// }
+		 
+		// document.onkeydown = function(){
+		// 	var  e = event || window.event;
+		// 	console.log(e);
+		// }
+		 
+		document.onkeyup = function(){
+		 	var e = event || window.event;
+		 	console.log(e);
+		 }
+	</script>
+</body>
+</html>

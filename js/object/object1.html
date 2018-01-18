@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象之构造函数</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		/*
+		 * ES5没有类的概念，我们使用原生的构造函数的方式模拟了类。
+		 * 类是一个抽象的概念，类指的是具有相同属性，相同行为的事物的总称
+		 * 
+		 * 使用构造函数创建类：
+		 * 构造函数的首字母必须是大写；
+		 * 在构造函数里我们使用this关键词给类添加属性及行为。
+		 * 使用构造函数创建具体的对象，用new关键字。
+		 * 用构造函数创建一个具体的过程叫实例化一个对象
+		 * 使用构造函数创建的对象，具有构造函数原型里的所有属性及行为，我们还可以给某一个具体的被实例化出来的对象添加自己独有的属性和行为。
+		 * 
+		 */
+	console.log(Math);
+	function People(name_,age_,sex_){
+		this.age = age_;
+		this.name = name_;
+		this.sex  = sex_;
+		this.eat  = function(){
+			console.log(1);
+		}
+		
+	}
+	console.log(Math);
+	var p1 = new People('王凯','80','男');
+	console.log(p1);
+	p1.eat();
+	
+	var p2 = new People('鹤翔','130','男');
+	p2.eat();
+	</script>
+</html>

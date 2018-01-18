@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流3</title>
+</head>
+<style>
+	ul{
+      	padding: 0;
+      	border:1px solid #000;
+      	margin: 16px auto;
+      	font-size: 0;
+      	text-align:center;
+      }
+   ul li{
+		width: 200px;
+		padding: 10px;
+		list-style:none;
+		display: inline-block;
+		font-size: 5rem;
+		vertical-align: top;
+	 }
+	 ul li div{
+	 	text-align: center;
+	 	color: #fff;
+	 	margin-bottom: 15px;
+
+	 }
+</style>
+<body>
+	<ul id = 'list'>
+    </ul>
+    
+   <script>
+   	var list = document.querySelector('#list');
+   	var heightArr = [];
+   	var liArr     = [];
+
+    function createLi(){
+    list.innerHTML  = '';
+    heightArr = [];
+        liArr = [];
+    var windowWidth = document.getElementsByTagName('body')[0].offsetWidth;
+    var    liNum    = Math.floor(windowWidth/220);
+    for(var i = 0; i<liNum;i++){
+    var newLi = document.createElement('li');
+    list.appendChild(newLi);
+    heightArr.push(0);
+    liArr.push(newLi);
+    }   	
+    }
+    createLi();
+
+    function randomNum(x,y){
+    return  Math.round(Math.random()*(y - x) + x);
+    }
+    
+
+    function minIndex(){
+    var min;
+    for(var i = 0; i < heightArr.length;i++){
+         min  = min  < heightArr[i]? min : heightArr[i];
+    }
+    var   minIndex1  = heightArr.indexOf(min);
+    return minIndex1;
+    }
+
+
+    function createDiv(){
+    for (var i = 0;i<50;i++){
+    	var newDiv    = document.createElement('div');
+    	var newHeight = randomNum(100,300);
+    	newDiv.style.height = newHeight + 'px';
+    	newDiv.style.background = 'rgb('+ randomNum(0,255)+','+randomNum(0,255)+','+randomNum(0,255) + ' )';
+    	newDiv.style.lineHeight = newHeight + 'px';
+    	newDiv.innerText  = i;
+    	var index = minIndex();
+    	liArr[index].appendChild(newDiv);
+    	heightArr[index] += newHeight;
+    }
+    }
+    createDiv();
+
+    window.onresize = function(){
+      createLi();
+      createDiv();
+    }
+
+
+
+   </script>
+
+</body>
+</html>

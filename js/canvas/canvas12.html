@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="{CHARSET}">
+		<title>绘制三角形的类</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: lightsteelblue;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+	    var mc = document.getElementById('myCanvas2');
+		var ctx= mc.getContext('2d');
+		
+		//封装类
+		function Point(x,y){
+			this.x = x;
+			this.y = y;
+		}
+		
+		//三角形类
+		function Triangle(point1,point2,point3){
+			this.point1 = point1;
+			this.point2 = point2;
+			this.point3 = point3;
+		}
+		
+		Triangle.prototype.draw = function(color,lineWidth){
+			//开始一条路径
+			
+			ctx.beginPath();
+			
+			//moveTo() point1
+			console.log(point1);
+			ctx.moveTo(point1.x,point1.y);
+			//lineTo() point2
+			ctx.lineTo(point2.x,point2.y);
+			//lineTo() point3
+			ctx.lineTo(point3.x,point3.y);
+			//闭合路径
+			ctx.closePath();
+			ctx.strokeStyle = color;
+			ctx.lineWidth   = lineWidth; 
+			//路径
+			ctx.stroke();
+		}
+		
+		var point1 = new Point(50,100);
+		var point2 = new Point(200,200);
+		var point3 = new Point(400,100);
+		var t1 = new Triangle(point1,point2,point3);
+		console.log(t1);
+		Triangle.prototype.draw();
+		t1.draw('pink','5');
+	</script>
+</html>

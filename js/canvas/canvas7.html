@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#myCanvas2{
+				background: lightsteelblue;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+	var mc = document.getElementById('myCanvas2');
+	var ctx= mc.getContext('2d');
+    //为canvas添加mousedown事件
+    mc.onmousedown = function(){
+    
+    	var e = event || window.event;
+    	//获取坐标
+    	var startX = e.clientX - mc.offsetLeft;
+    	var startY = e.clientY - mc.offsetTop;
+    	ctx.fillStyle = 'lightgreen';
+    	mc.onmousemove = function(){
+    	var e1 = event || window.event;  		
+    		//获取坐标(鼠标基于canvas)endX,endY
+    var  endX  = e1.clientX  - mc.offsetLeft;
+    var  endY  = e1.clientY - mc.offsetTop;
+    		//根据两个坐标计算出要绘制矩形的宽高
+    	var width  = endX - startX;
+    	var height = endY - startY;
+    		//fillRect
+    	ctx.clearRect(0,0,800,600);//清除画布
+    	ctx.fillRect(startX,startY,width,height);
+    	ctx.fill();
+    	}
+    }
+    document.onmouseup = function(){
+    		mc.onmousemove = null;
+    }
+	
+	
+	</script>
+</html>

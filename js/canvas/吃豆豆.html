@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>吃豆豆</title>
+		<style type="text/css">
+			body {
+				background: rgb(5, 21, 53);
+			}
+			@keyframes mov {
+				0% {
+					box-shadow: 0 0 35px mediumvioletred;
+					/*background:darkkhaki;*/
+				}
+				25% {
+					box-shadow: 0 0 75px yellow;
+					
+				}
+				50% {
+					box-shadow: 0 0 35px mediumvioletred;
+					/*background:d;*/
+				}
+				75% {
+					box-shadow: 0 0 75px yellow;
+					/*background:lavenderblush;*/
+				}
+				100% {
+					box-shadow: 0 0 35px mediumvioletred;
+					/*background:darkkhaki;*/
+				}
+			}
+			
+			#myCanvas {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background:darkcyan;
+				display: block;
+				margin: auto;
+				animation: mov 10s linear infinite;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="myCanvas" width="1000" height="800">
+		你的浏览器不支持canvas
+	</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas');
+		var ctx = mc.getContext('2d');
+		var mouseX = mc.width / 2;
+		var mouseY = mc.height / 2;
+		var minX = 10,
+			maxX = mc.width - 10;
+		var minY = 10,
+			maxY = mc.height - 10;
+		var minV = -4,
+			maxV = 4;
+		var eye1 = 10,
+			eye2 = 15,
+			eye3 = 20;
+		var ox = Math.PI / 4,
+			oy = 7 * Math.PI / 4;
+		var tr = false;
+		var d = 35,
+			d2 = 0;
+		var score = 0;
+		var flag2 = 0;
+
+		function rn(x, y) {
+			return Math.round(Math.random() * (y - x) + x);
+		}
+
+		//脸
+		function Mouth(mouseX, mouseY, ox, oy, eye1, eye2, eye3, tr) {
+			this.x = mouseX;
+			this.y = mouseY;
+			this.ox = ox;
+			this.oy = oy;
+			this.eye1 = eye1;
+			this.eye2 = eye2;
+			this.eye3 = eye3;
+			this.tr = tr;
+
+		}
+		//脸
+		function Mouth2(mouseX, mouseY, eye1, eye2, eye3, d, d2) {
+			if(mouseX < 35) {
+				mouseX = 35
+				left = false;
+			}
+			if(mouseX > mc.width - 35) {
+				mouseX = mc.width - 35;
+			}
+			if(mouseY < 35) {
+				mouseY = 35;
+			}
+			if(mouseY > mc.height - 35) {
+				mouseY = mc.height - 35;
+			}
+			this.x = mouseX;
+			this.y = mouseY;
+			this.eye1 = eye1;
+			this.eye2 = eye2;
+			this.eye3 = eye3;
+			this.d = d;
+			this.d2 = d2;
+
+		}
+		//小豆豆
+		function Ball(x, y, vx, vy) {
+			this.x = x;
+			this.y = y;
+			this.r = 10;
+			this.vx = vx;
+			this.vy = vy;
+		}
+		//敌人
+		function enemy(x, y, vx, vy, bgColor) {
+			this.x = x;
+			this.y = y;
+			this.r = 35;
+			this.bgColor = bgColor;
+			this.vx = parseInt(Math.random() * 2 + 1) == 1 ? vx : -vx;
+			this.vy = parseInt(Math.random() * 2 + 1) == 1 ? vy : -vy;
+		}
+
+		//敌人的原型方法
+		enemy.prototype.draw = function() {
+			//碰壁置负
+			if(this.x < this.r || this.x > mc.width - this.r) {
+				this.vx = -this.vx;
+			}
+			if(this.y < this.r || this.y > mc.height - this.r) {
+				this.vy = -this.vy;
+			}
+			//改变圆心位置
+			this.x += this.vx;
+			this.y += this.vy;
+			//绘制敌人
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+			ctx.fillStyle = this.bgColor;
+			ctx.fill();
+
+			//绘制敌人眼睛
+			ctx.beginPath();
+			ctx.arc(this.x - 10, this.y - 15, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = 'white';
+			ctx.fill();
+			//绘制敌人眼睛
+			ctx.beginPath();
+			ctx.arc(this.x + 13, this.y - 15, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = 'white';
+			ctx.fill();
+			//画敌人眼珠
+			ctx.beginPath();
+			ctx.arc(this.x - 10, this.y - 12, 4, 0, 2 * Math.PI);
+			ctx.fillStyle = 'black';
+			ctx.fill();
+			//画敌人眼珠
+			ctx.beginPath();
+			ctx.arc(this.x + 14, this.y - 12, 4, 0, 2 * Math.PI);
+			ctx.fillStyle = 'black';
+			ctx.fill();
+			//绘制敌人嘴巴
+			ctx.beginPath();
+			ctx.arc(this.x, this.y + 15, 13, 0, Math.PI);
+			ctx.fillStyle = 'white';
+			ctx.closePath();
+			ctx.fill();
+			//绘制敌人嘴巴
+			ctx.beginPath();
+			ctx.arc(this.x, this.y + 15, 8, 0, Math.PI);
+			ctx.fillStyle = 'hotpink';
+			ctx.closePath();
+			ctx.fill();
+
+			//			//画线
+			//			ctx.beginPath();
+			//			ctx.moveTo(this.x-10,this.y+15);
+			//			ctx.lineTo(this.x-10,this.y+27);
+			//			ctx.strokeStyle = 'black';
+			//			ctx.stroke();
+			//			//画线
+			//			ctx.beginPath();
+			//			ctx.moveTo(this.x+10,this.y+15);
+			//			ctx.lineTo(this.x+10,this.y+27);
+			//			ctx.strokeStyle = 'black';
+			//			ctx.stroke();
+			//			//画线
+			//			ctx.beginPath();
+			//			ctx.moveTo(this.x,this.y+15);
+			//			ctx.lineTo(this.x,this.y+8);
+			//			ctx.stroke();
+			//绘制敌人耳朵
+			ctx.beginPath();
+			ctx.moveTo(this.x - 32, this.y - 18);
+			ctx.lineTo(this.x - 30, this.y - 40);
+			ctx.lineTo(this.x - 12, this.y - 33);
+			ctx.fillStyle = 'hotpink';
+			ctx.fill();
+			//绘制敌人耳朵
+			ctx.beginPath();
+			ctx.moveTo(this.x + 32, this.y - 18);
+			ctx.lineTo(this.x + 30, this.y - 40);
+			ctx.lineTo(this.x + 12, this.y - 33);
+			ctx.fillStyle = 'hotpink';
+			ctx.fill();
+		}
+
+		//小豆豆的原型方法
+		Ball.prototype.draw = function() {
+			//碰壁置负
+			if(this.x < this.r || this.x > mc.width - this.r) {
+				this.vx = -this.vx;
+			}
+			if(this.y < this.r || this.y > mc.height - this.r) {
+				this.vy = -this.vy;
+			}
+			//改变圆心位置
+			this.x += this.vx;
+			this.y += this.vy;
+			//绘制
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+			ctx.fillStyle = 'rgba(' + rn(30, 255) + ',' + rn(30, 255) + ',' + rn(30, 255) + ',0.8)';
+			ctx.fill();
+		}
+
+		//实例化小球
+		var ballArr = [];
+
+		function createBall() {
+			var x = rn(minX, maxX);
+			var y = rn(minY, maxY);
+			var vx = rn(minV, maxV);
+			var vy = rn(minV, maxV);
+			if(vx == 0) {
+				vx += 1
+			}
+			if(vy == 0) {
+				vy -= 1
+			}
+			var newBall = new Ball(x, y, vx, vy);
+			ballArr.push(newBall);
+		}
+
+		function forBall() {
+			for(var i = 0; i < 10; i++) {
+				createBall();
+			}
+		}
+		forBall();
+
+		//实例化敌人
+		var ballArr1 = [];
+
+		function createEnemy() {
+			var x = rn(35, mc.width - 35);
+			var y = rn(35, 40);
+			var vx = rn(8, 20);
+			var vy = rn(5, 10);
+			var bgColor = 'skyblue';
+			if(vx == 0) {
+				vx += 3
+			}
+			if(vy == 0) {
+				vy -= 3
+			}
+			var newEnemy = new enemy(x, y, vx, vy, bgColor);
+			ballArr1.push(newEnemy);
+		}
+
+		function forEnemy() {
+			for(var i = 0; i < 4; i++) {
+				createEnemy();
+			}
+		}
+		forEnemy();
+
+		//张嘴
+		Mouth.prototype.draw1 = function() {
+			//绘制脸
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, 35, this.ox, this.oy, this.tr);
+			ctx.lineTo(this.x, this.y);
+//			ctx.closePath();
+			ctx.fillStyle = 'yellow';
+			ctx.fill();
+			ctx.stroke();
+			//绘制眼睛
+			ctx.beginPath();
+			ctx.arc(this.x - this.eye1, this.y - this.eye2, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = 'lightblue';
+			ctx.fill();
+			//画眼珠
+			ctx.beginPath();
+			ctx.arc(this.x - this.eye1, this.y - this.eye3, 5, 0, 2 * Math.PI);
+			ctx.fillStyle = 'white';
+			ctx.fill();
+		}
+
+		//闭嘴
+		Mouth2.prototype.draw2 = function() {
+			//绘制脸
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, 35, 0, 2 * Math.PI);
+//			ctx.closePath();
+			ctx.fillStyle = 'yellow';
+			ctx.fill();
+			ctx.moveTo(this.x, this.y);
+			ctx.lineTo(this.x + this.d, this.y + this.d2);
+			ctx.stroke();
+			//绘制眼睛
+			ctx.beginPath();
+			ctx.arc(this.x - this.eye1, this.y - this.eye2, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = 'lightblue';
+			ctx.fill();
+			//画眼珠
+			ctx.beginPath();
+			ctx.arc(this.x - this.eye1, this.y - this.eye3, 5, 0, 2 * Math.PI);
+			ctx.fillStyle = 'white';
+			ctx.fill();
+		}
+
+		//实例张嘴
+		var mouth;
+
+		function openMouth() {
+			mouth = new Mouth(mouseX, mouseY, ox, oy, eye1, eye2, eye3, tr);
+			mouth.draw1();
+		}
+
+		//实例闭嘴
+		function closeMouth() {
+
+			mouth = new Mouth2(mouseX, mouseY, eye1, eye2, eye3, d, d2);
+			mouth.draw2();
+		}
+
+		//开始页面
+		function startPage() {
+			ctx.font = '70px impact';
+			ctx.fillStyle = 'yellow';
+			ctx.fillText('EAT BALLS', 370, 380);
+
+			ctx.beginPath();
+			ctx.font = '50px impact';
+			ctx.fillStyle = 'plum';
+			ctx.fillText('Click the game page to start the game', 115, 480);
+		}
+		startPage();
+
+		//分数页面
+		function drawScore() {
+			ctx.beginPath();
+			ctx.font = '20px impact';
+			ctx.fillStyle = 'red';
+			ctx.fillText('SCORE:' + score, 20, 20);
+		}
+
+		//分装计算2个点距离的函数
+		function getDis(ball1, ball2) {
+			//根据位置
+			var dis = Math.sqrt(Math.pow(ball1.x - ball2.x, 2) + Math.pow(ball1.y - ball2.y, 2));
+			//返回值
+			if(dis <= 45) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		//用循环计算脸与小球之间的圆心距
+		function jugeTwoBall() {
+			for(var i = 0; i < ballArr.length; i++) {
+				var bol = getDis(mouth, ballArr[i]); //返回布尔值
+				if(bol) {
+					ballArr.splice(i, 1);
+					score += 1;
+				}
+				if(ballArr.length <= 0) {
+					forBall();
+					createEnemy();
+
+				}
+
+			}
+		}
+
+		//用循环计算与敌人之间的圆心距
+		function jugeTwoBall2() {
+
+			for(var i = 0; i < ballArr1.length; i++) {
+				var dis = Math.sqrt(Math.pow(mouth.x - ballArr1[i].x, 2) + Math.pow(mouth.y - ballArr1[i].y, 2));
+
+				if(dis <= 70) {
+					overPage();
+				}
+
+			}
+		}
+
+		//结束页面
+		function overPage() {
+			clearInterval(timer);
+			clearInterval(timer1);
+			mc.style.background = 'darkcyan'
+			ctx.clearRect(0, 0, mc.width, mc.height);
+			ctx.font = '70px impact';
+			ctx.fillStyle = 'yellow';
+			ctx.fillText('GAME OVER', 350, 330);
+
+			ctx.beginPath();
+			ctx.font = '60px impact';
+			ctx.fillStyle = 'yellow';
+			ctx.fillText('score :' + score, 402, 420);
+
+			ctx.beginPath();
+			ctx.font = '65px impact';
+			ctx.fillStyle = 'plum';
+			ctx.fillText('START AGAIN', 346, 510);
+			score = 0;
+			ballArr = [];
+			ballArr1 = [];
+			document.onkeydown = null;
+			forBall();
+			forEnemy();
+			mouseX = mc.width / 2;
+			mouseY = mc.height / 2;
+			eye1 = 10;
+			eye2 = 10;
+			eye3 = 15;
+			tr = false;
+			ox = Math.PI / 4;
+			oy = 7 * Math.PI / 4;
+			d = 35;
+			d2 = 0;
+			flag2 = 0;
+
+		}
+
+		//键盘控制走
+		//创建各个方向条件判断初始变量
+		var left = false;
+		var right = false;
+		var top1 = false;
+		var bottom = false;
+		var timer1;
+
+		function key1() {
+			document.onkeydown = function(e) {
+				var e = event || window.event;
+
+				switch(e.keyCode) {
+					case 37: //左
+						left = true;
+						break;
+
+					case 38: //上
+						top1 = true;
+						break;
+
+					case 39: //右
+						right = true;
+						break;
+
+					case 40: //下
+						bottom = true;
+						break;
+
+				}
+			}
+			//设置一个定时
+			timer1 = setInterval(function() {
+				//当其中一个条件为true时，则执行当前函数移动对应方向
+				if(left == true) {
+					mouseX -= 15;
+					if(mouseX < 35) {
+					   mouseX = 35
+					}
+					eye1 = -5;
+					eye2 = 10;
+					eye3 = 15;
+					tr = true;
+					ox = 3 * Math.PI / 4;
+					oy = 5 * Math.PI / 4;
+					d = -35;
+					d2 = 0;
+				} 
+				else if(top1 == true) { 
+					mouseY -= 15;
+					if(mouseY < 35) {
+						mouseY = 35;
+					}
+					eye2 = -10;
+					eye3 = -15;
+					tr = false;
+					ox = -Math.PI / 4;
+					oy = -3 * Math.PI / 4;
+					d = 0;
+					d2 = -35;
+				} 
+				else if(right == true) {
+					mouseX += 15;
+					if(mouseX > mc.width - 35) {
+					mouseX = mc.width - 35;
+					}
+					eye1 = 10;
+					eye2 = 10;
+					eye3 = 15;
+					tr = false;
+					ox = Math.PI / 4;
+					oy = 7 * Math.PI / 4;
+					d = 35;
+					d2 = 0;
+				} 
+				else if(bottom == true) {
+					mouseY += 15;
+					if(mouseY > mc.height - 35) {
+					   mouseY = mc.height - 35;
+					}
+					eye2 = 10;
+					eye3 = 15;
+					tr = true;
+					ox = Math.PI / 4;
+					oy = 3 * Math.PI / 4;
+					d = 0;
+					d2 = 35;
+				}
+			}, 50);
+
+			//执行完后，所有对应变量恢复为false，保持静止不动
+			document.onkeyup = function(e2) {
+				var e2 = event || window.event;
+				switch(e2.keyCode) {
+					case 37:
+						left = false;
+						break;
+					case 38:
+						top1 = false;
+						break;
+					case 39:
+						right = false;
+						break;
+					case 40:
+						bottom = false;
+						break;
+				}
+			}
+
+		}
+
+		var isopen = true;
+        //计时器函数
+		function mouthTimer() {
+			timer = setInterval(function() {
+				ctx.clearRect(0, 0, mc.width, mc.height);
+
+				for(var i = 0; i < ballArr.length; i++) {
+					ballArr[i].draw();
+				}
+				for(var j = 0; j < ballArr1.length; j++) {
+					ballArr1[j].draw();
+				}
+				if(isopen) {
+					closeMouth();
+					isopen = false;
+				} else {
+					openMouth();
+					isopen = true;
+				}
+				jugeTwoBall();
+				drawScore();
+				jugeTwoBall2();
+
+			}, 100);
+
+		}
+         //点击开始游戏
+		mc.onclick = function() {
+			if(flag2 == 0) {
+				mc.style.background = 'black';
+				key1();
+				mouthTimer();
+			}
+			flag2 = 1;
+		}
+		
+		var flag3  = true;
+		setInterval(function(){
+			if(flag3){
+				mc.style.boxShadow = '0 0 30px white';
+				flag3 = false;
+			}
+			else{
+				setTimeout(function(){
+				mc.style.boxShadow = '0 0 60px white';
+				flag3 = true;
+				},100);
+				
+				
+			}
+		},1000);
+	</script>
+
+</html>

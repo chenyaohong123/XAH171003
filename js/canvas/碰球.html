@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>打快</title>
+		<style type="text/css">
+			#myCanvas{
+				background: #000000;
+				display: block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="800" height="800">
+			你的浏览器不支持canvas
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc  = document.getElementById('myCanvas');
+		var ctx = mc.getContext('2d');
+		
+		function rn(x,y){
+	    	return Math.round(Math.random()*(y-x)+x);
+	    }
+		
+		//画白块及子弹
+		var mouseX =mc.width/2;
+		var score  = 0;
+		var bullArr=[];
+		var enemyArr = [];
+		var boomArr  = [];
+		var dieNum = 0;
+		var createEnemyTimer;
+		var eleMoveTimer;
+		
+		//画白块
+		function drawBox(){
+		if(mouseX>mc.width-20){
+			mouseX = mc.width - 20;
+		}
+		if(mouseX<20){
+			mouseX = 20;
+		}
+		ctx.beginPath();
+		ctx.fillStyle = 'white';
+		ctx.fillRect(mouseX - 20,730,40,40);
+		ctx.fill();
+		}
+		drawBox();
+		
+		//创建子弹
+		function Bullet(){
+			this.x = mouseX - 4;
+			this.y = 722;
+			this.speed =2;
+		}
+		Bullet.prototype.move = function(){
+			this.y -= this.speed;
+			ctx.beginPath();
+			ctx.fillStyle = 'white';
+			ctx.fillRect(this.x,this.y,8,8);
+			ctx.fill();
+		}
+		//画掉落物
+		function Enemy(x,wh,vx,vy,bc,dis){
+			this.x =x;
+			this.y = -wh;
+	    	    this.wh = wh;
+	    	    this.vx = vx; 
+	    	    this.vy = vy;
+	    	    this.bc = bc;
+	    	    this.left = this.x - dis;
+	    	    this.right = this.x + dis;						
+		}
+		
+		Enemy.prototype.move = function(){
+			if(this.x<this.left ||this.x>this.right){
+				this.vx*= -1;
+			}
+			this.x += this.vx;
+			this.y += this.vy;
+			
+			ctx.beginPath();
+			ctx.fillStyle = this.bc;
+			ctx.fillRect(this.x,this.y,this.wh,this.wh);
+			ctx.fill();
+		}
+		
+		var minwh = 40, maxwh = 70;
+		var minx  = 150, maxx = mc.width - 150;
+		var minvx = -5,maxvx = 3;
+		var minvy = 1 ,maxvy =3;
+		var mindis = 50; maxdis = 150;
+		function createEnmy(){
+			var x  =rn(minx,maxx);
+			var wh =rn(minwh,maxwh);
+			var vx =rn(minvx,maxvx);
+			var vy =rn(minvy,maxvy);
+			var dis = rn(mindis,maxdis);
+			var bc  ='rgb('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+')';
+	    	//实例化一个掉落块
+	    	var enemy = new Enemy(x,wh,vx,vy,bc,dis);
+	    	enemyArr.push(enemy);
+			
+		}
+		
+		function judegHit(){
+			for(var i=0;i<bullArr.length;i++){
+				for(var j=0;j<enemyArr.length;j++){
+					var a = bullArr[i];
+					var b = enemyArr[j];
+					if(a.x + 8 > b.x&&a.y+8>b.y&&a.x<b.x+b.wh&&a.y<b.y+b.wh){
+					bullArr.splice(i,1);//移除子弹
+	    	 			enemyArr.splice(j,1);//移除掉落物
+	    	 			i--;	
+	    	 			break;
+					}
+				}
+			}
+		}
+		
+		function createBullet(){
+			var bullet = new Bullet();
+			bullArr.push(bullet);
+			
+		}
+		
+		
+		
+		mc.onmousemove = function(){
+			var e = event || window.event;
+			
+			mouseX = e.clientX - mc.offsetLeft;
+			drawBox();
+		}
+		
+		mc.onclick = function(){
+			createBullet();
+		}
+		
+		setInterval(function(){
+			ctx.clearRect(0,0,800,800);
+			drawBox();
+			for(var i=0;i<bullArr.length;i++){
+				bullArr[i].move();
+			}
+			for(var j=0;j<enemyArr.length;j++){
+	    	   	enemyArr[j].move();
+	    	   }
+			judegHit();
+		},10);
+		
+		  createEnemyTimer = setInterval(function(){
+	     	createEnmy();
+	     },1000);
+	     
+	</script>
+	
+</html>

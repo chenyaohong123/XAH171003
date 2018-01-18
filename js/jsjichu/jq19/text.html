@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="container" data-id = "23">
+			这是原来的话
+			<p>这是p标签</p>
+		</div>
+		<input type="text" id="inp1" value="1" />
+		<input type="text" id="inp2" value="3"/>
+		<input type="text" id="inp3" value=""/>
+		<button>点击获取value值</button>
+	</body>
+	<script type="text/javascript" src='jquery-3.2.1.min.js'></script>
+	<script>
+	/*
+	 创建一个JQuery对象
+	 $('<div></div>');
+	 
+	 text()函数和html()函数：
+	 设置或者获取JQuery对象(html元素)的文本或者html内容。
+	 
+	 attr()函数
+	 接收一个参数：ele.attr('class');获取ele元素的class属性值
+	 接收两个参数：ele.attr('class','on');将ele元素的class属性设置成on
+	 
+	 val()函数：
+	 设置或者获取表单元素的value值
+	 
+	 添加元素
+	 ele.append(newEle);//尾部添加
+	 ele.prepend(newEle);//头部添加
+	 ele.after(newEle);//在ele元素之后添加newEle
+	 ele.before(newEle);//在ele元素之前添加newEle
+	 
+	 删除元素
+	 ele.remove();//移除ele本身
+	 ele.empty();//清空ele元素的所有子节点
+	 */
+	
+//		var newDiv = $('<div id = "wrap">这是一个新的div</div>');
+//		console.log(newDiv);
+//       $('#container').text('这是一句话');
+         console.log($('#container').text());//不包含注释，包含空格和回车
+//       console.log($('#container').html());
+//		 $('#container').html('<div>new element</div>');
+  		
+  		 console.log($('#container').attr('id'));
+  	     console.log($('#container').attr('data-id'));
+  	     
+//	     $('#container').attr('id','aa');
+  	     $('#container').attr('class','on');
+  	     
+  	     console.log($('#inp1').val());//获取inp1 value的值
+  	     $('#inp3').val('new value');
+  	     
+  	     var newDiv = $('<div>newDiv</div>');//创建一个JQuery对象
+  	     
+  	     $('#container').append('<p>new p</p>');//尾部添加元素
+  	     $('#container').prepend(newDiv);//头部添加元素
+  	     
+  	     $('#container').after('<mark>container的after</mark>');
+  	     $('#container').before('<h1>container的before</h1>');
+  	     
+//	     $('#container').remove();//删除元素及其子元素
+  	     $('#container p').remove();
+  	     
+//	     $('#container').empty();
+		 
+	</script>
+</html>

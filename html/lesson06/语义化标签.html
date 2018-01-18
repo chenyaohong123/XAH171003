@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>h5新增语义化标签</title>
+</head>
+<style>
+	wangdonghui{
+		width: 100px;
+		height: 100px;
+		background-color: red;
+		display: block;
+
+	}
+	bdi{
+		unicode-bidi: bidi-override;
+	}
+</style>
+<body>
+	<!-- 页面的头部 -->
+	<header>
+		品牌logo，搜索信息，登录，注册
+	</header>
+	<!-- 导航 -->
+	<nav>
+		超链接
+	</nav>
+	<!-- 主要内容 -->
+	<article>
+		文章，网站的内容区域
+	</article>
+	<!-- 区块 -->
+	<section>
+		每一部分，比如小米官网，内容区域的划分
+	</section>
+	<!-- 侧边栏 -->
+	<aside>
+		包含一些跟内容相关的信息，比如简书，菜鸟教程的侧边栏链接
+	</aside>
+	<!-- 页面尾部 -->
+	<footer>
+		版权，合作信息，联系我们，协议
+	</footer>
+	<!-- 自定义标签:标签名必须是纯小写字母，不能有大写字母，数字和其他字符 -->
+	<wangdonghui></wangdonghui>
+	<!-- 时间 -->
+	<time>
+		2017年11月6号
+	</time>
+	<!-- 详细信息 -->
+	<details>
+		<!-- summary：概要，页面显示的主题 -->
+		<summary>帅哥</summary>
+		<p>TFBoys</p>
+		<p>林俊杰</p>
+		<p>刘青云</p>
+	</details>
+	<!-- 图文标签 -->
+	<figure>
+		<figcaption>美女</figcaption>
+		<img src="img/2-2.jpg" alt="">
+	</figure>
+	<!-- 标记标签 -->
+	<p>我是<mark>标记</mark>标签</p>
+	<!-- 标尺标签
+	min:最小值
+	max：最大值
+	low：低范围区域
+	high：高范围区域
+	value：当前值
+	-->
+	<meter min="0" max="100" low="40" high="80" value="30"></meter>
+	<!-- 进度条:下载内容的进度 -->
+	<progress max="100" value="50" min="0">
+		下载
+	</progress>
+	<!-- 注释标签 -->
+	<ruby>
+		犇<rt>ben</rt>
+		<rp>
+		当浏览器不支持ruby标签的时候，浏览区会显示rp标签的内容。支持ruby标签的浏览器是不会显示rp标签的内容的。
+	    </rp>	
+	</ruby>
+	<!-- 内容不足的隔离标签 -->
+	<div>对比内容</div>
+	<bdi dir="rtl">对比内容</bdi>	
+
+	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
+</body>
+</html>

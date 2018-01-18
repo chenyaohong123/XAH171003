@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>math</title>
+</head>
+<body>
+	<script>
+		//Math 用来做数学运算的对象
+		// 绝对值
+		console.log(Math);
+		var a = Math.abs(-3);//3
+		console.log(a);
+
+		// 最大最小值
+		console.log(Math.max(3,4));//4
+		console.log(Math.max(3,4,5));//5
+		console.log(Math.min(3,4));//3
+
+		// 上，下舍入
+		console.log(Math.floor(4.999999));//4（下舍入，x轴靠左边值）
+		console.log(Math.ceil(4.999999));//5（上舍入，x轴右边）
+
+		// 四舍五入
+		 console.log(Math.round(4.001));//4
+		 console.log(Math.round(4.5));//5
+
+		 //随机数
+		 console.log(Math.random());//[0,1)的随机数
+		 console.log(Math.random()*7+3);//[3,10)的随机数
+	</script>
+</body>
+</html>

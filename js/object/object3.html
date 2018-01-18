@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<title>原型</title>
+	</head>
+	<body>
+	</body>
+	 <script type="text/javascript">
+	 	/*共有属性和共有方法：
+	 	 * 在构造函数里用this关键词为类添加的属性和方法。
+	 	 * 
+	 	 * 原型属性和原型方法：
+	 	 * 使用prototype属性写在类的原型里的属性和方法。
+	 	 * 
+	 	 * 区别：
+	 	 * (1)实例化对象时，共有属性和共有方法会和对象一起作为一个新数据从新保存在计算机的内存中。原型属性和原型方法只保存在构造函数里。当对象要使用原型函数时，会在计算机内存中找到构造函数里的原型方法，调用它。原型方法比起共有方法，大量的节省了计算机的内存。
+	 	 * (2)原型属性和原型方法让类的继承已及父类子类之间的原型链变得更好
+	 	 * 
+	 	 * 
+	 	 */
+	 	
+	 	
+	 	function Animal(name_,kind_,voice_){
+	 		this.name = name_;
+	 		this.kind = kind_;
+	 		this.voice = voice_;
+	 		this.running = function(){
+	 			console.log(this.name  + '跑的很快');
+	 		}
+	 	}
+	 	Animal.prototype = {
+	 		sleep:function(){
+	 			console.log(this.kind + '很能睡');
+	 		},
+	 		eyes:'两只眼睛'
+	 	};
+	 	Animal.prototype.mouth = '一个嘴';
+	 	Animal.prototype.eat =function(){
+	 		console.log(this.name + '很能吃');
+	 	}
+	 	
+	 	
+	 	//实例化一个具体的动物对象
+	 	var a1 = new Animal('狮子','王','哈哈哈');
+	 	console.log(a1);
+	 	
+	 </script>
+</html>

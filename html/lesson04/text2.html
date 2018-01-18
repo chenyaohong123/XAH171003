@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+*{
+	padding: 0;
+	margin: 0;
+}
+  body{
+  	text-align: center;
+  }
+	.box{
+		border: 1px solid  red;
+		width:90%;
+		text-align: center ;
+		/*margin：0 auto；居中只适用于display：block；类型的盒子*/
+		margin:0 auto;
+		position: relative;
+		font-size: 0;
+		}
+		.box img{
+			width: 100%;
+		} 
+		.mask{
+			width: 100%;
+			height: 30px;
+			background-color: black;
+			/*opacity：取值0~1，0代表全透明，1代表不透明，值后面不加单位*/
+			opacity: 0.5;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 9;
+		}
+		.box p{
+			height: 30px;
+			width: 100%;
+			line-height: 30px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			color: white;
+			font-size: 15px;
+			/*z轴上的值*/
+			z-index: 10;
+		}
+</style>
+<body>
+	<div class="box">
+		<img src="img/15-1.jpg" alt="">
+		<p>就是这么任性</p>
+		<div class="mask">
+		</div>
+	</div>
+</body>
+</html>

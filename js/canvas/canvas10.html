@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>canvas表格</title>
+	</head>
+	<style>
+		#myCanvas2 {
+			background: black;
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		
+		var mc = document.querySelector('#myCanvas2');
+		var ctx = mc.getContext('2d');
+		//将canvas的(0,0)点设置到画布中心
+		
+
+		function randomNum(x, y) {
+			return Math.round(Math.random() * (y - x) + x);
+		}
+		
+//		var colorTimer = setInterval(function() {			
+		var y = 0;
+		for(var i = 0; i < 11; i++) {
+			ctx.beginPath();
+			y += 50;
+			ctx.moveTo(0, y);
+			ctx.lineTo(800, y);
+			ctx.lineWidth = '1';
+//			ctx.strokeStyle = 'rgb(' + randomNum(0, 255) + ',' + randomNum(0, 255) + ',' + randomNum(0, 255) + ')';
+             ctx.strokeStyle = 'white';
+			ctx.stroke();
+			
+		}
+
+		var x = 0;
+		for(var i = 0; i < 15; i++) {
+			ctx.beginPath();
+			x += 50;
+			ctx.moveTo(x, 0);
+			ctx.lineTo(x, 600);
+			ctx.lineWidth = '1';
+//			ctx.strokeStyle = 'rgb(' + randomNum(0, 255) + ',' + randomNum(0, 255) + ',' + randomNum(0, 255) + ')';
+             ctx.strokeStyle = 'white';
+			ctx.stroke();
+		}
+//		}, 500);
+		ctx.translate(400,300);
+        ctx.beginPath();
+        ctx.moveTo(0,-150);
+        var g2 = ctx.createRadialGradient(150,-150,5,0,-150,200);
+		g2.addColorStop(0, 'pink');
+		g2.addColorStop(1, 'deeppink');
+        ctx.bezierCurveTo(100, -300, 300,-50, 0, 0);
+        ctx.lineWidth = '3';
+        ctx.fillStyle = g2;
+        ctx.fill();
+        
+
+        ctx.beginPath();
+        ctx.moveTo(0,-200);        
+        ctx.bezierCurveTo(100, -350, 350,-50, 0, 0);
+        ctx.lineWidth = '10';
+        ctx.strokeStyle = 'deeppink';
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,150);
+        var g3 = ctx.createRadialGradient(150,150,5,0,150,200);
+		g3.addColorStop(0, 'pink');
+		g3.addColorStop(1, 'deeppink');
+        ctx.bezierCurveTo(100, 300, 300,50, 0, 0);       
+        ctx.lineWidth = '3';
+        ctx.fillStyle = g3;
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,-200);        
+        ctx.bezierCurveTo(-100, -350, -350,-50, 0, 0);
+        ctx.lineWidth = '10';
+        ctx.strokeStyle = 'deeppink';
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,150);        
+        ctx.bezierCurveTo(-100, 300, -300,50, 0, 0);
+        ctx.lineWidth = '3';
+        ctx.fillStyle = 'deeppink';
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,-150); 
+        var g1 = ctx.createRadialGradient(-150,-150,5,0,-150,200);
+		g1.addColorStop(0, 'yellow');
+		g1.addColorStop(1, 'orange');
+        ctx.bezierCurveTo(-100, -300, -300,-50, 0, 0);
+        ctx.lineWidth = '3';
+        ctx.fillStyle = g1;
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,200);        
+        ctx.bezierCurveTo(100, 350, 350,50, 0, 0);
+        ctx.lineWidth = '10';
+        ctx.strokeStyle = 'deeppink';
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(0,200); 
+        
+        ctx.bezierCurveTo(-100, 350, -350,50, 0, 0);
+        ctx.lineWidth = '10';
+        ctx.strokeStyle = 'deeppink';
+        ctx.stroke();
+	</script>
+
+</html>

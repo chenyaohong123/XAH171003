@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>elm</title>
+	<style>
+	@keyframes mov{
+		0%{
+			transform: translateX(0) rotateY(0deg);
+		}
+		45%{
+			transform: translateX(925px) rotateY(0deg);
+		}
+		50%{
+			transform: translateX(925px) rotateY(180deg);
+		}
+		95%{
+			transform: translateX(0px) rotateY(180deg);
+		}
+		100%{
+			transform: translateX(0px) rotateY(0deg);
+		}
+
+	}
+		.box{
+			width: 1000px;
+			height: 500px;
+			border:1px solid red;
+			background-color: url(img/bg.png) 0 0 no-repeat;
+			position: relative;
+
+		}
+		img{
+			width:75px;
+			height: 40px;
+			position: absolute;
+			left:0;
+			bottom:0;
+			z-index: 1;
+			animation:mov 10s ease-in-out infinite;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="img/car.png" alt="">
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<title>原型继承</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function Car(voice){
+			this.sign = function(){//公有方法
+			console.log(voice);
+			}
+		}
+		Car.prototype = {
+			luntai  : '5',
+			running:function(){
+				console.log('跑的快');
+			}
+		}
+//		Car.prototype.luntai  = '5';//原型属性
+//		Car.prototype.running = function(){//原型方法
+//			console.log('跑的快');
+//		}
+		function Aodi(){}
+		//原型继承
+		Aodi.prototype =new Car('哈哈哈');
+		Aodi.prototype.constructor = Aodi;
+		Aodi.prototype.pointer = '四个圈';
+		Aodi.prototype.guanggao = function(){
+			console.log('做得好');
+		}
+//      Aodi.prototype = {
+//      	point:'四个圈',
+//      	guanggao:function(){
+//      	console.log('做的好');
+//      	}
+//      }
+		
+		var a1 = new Aodi();
+		console.log(a1);
+		a1.running();
+		
+		//A5
+		function A5(color){
+			this.color=color;
+		}
+		A5.prototype = new Aodi();
+		A5.prototype.constructor = A5;
+		var a2 = new A5('white');
+		console.log(a2);
+	</script>
+</html>
+

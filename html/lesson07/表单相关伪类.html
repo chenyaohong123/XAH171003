@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>表单相关伪类</title>
+</head>
+<style>
+	input:checked{
+      width: 100px;
+      height: 100px;
+	}
+	input:disabled{
+		background-color: green;
+	}
+	input:enabled{
+		background-color: red;
+	}
+	input:focus{
+		outline: none;
+		border: 10px solid orange;
+	}
+	input:in-range{
+		color: yellow;
+	}
+	input:invalid{
+		color: green;
+	}
+	input:optional{
+		border: 10px solid pink;
+	}
+	input:read-only{
+		background-color: purple;
+	}
+	input:read-write{
+		font-size: 30px;
+	}
+</style>
+<body>
+	<!-- checked:被选中的input标签设置样式 -->
+	<input type="radio" name="sex">男
+	<input type="radio" name="sex">女
+	<!-- disabled：给禁止用户输入的input标签设置样式 -->
+	<!-- enabled：给用户可以输入的input标签设置样式 -->
+	<input type="text" disabled value="nihao">
+	<input type="text">
+	<!-- type：hidden；主要是加载订单号，批次号，等不需要用户看见或者操作的信息 -->
+	<input type="hidden" value="哈哈哈">
+	<!-- focus:给获取焦点的input元素设置样式 -->
+	<input type="text">
+	<input type="text">
+	<!-- in-range：给输入的值在有效范围内的input元素设置样式；
+	input标签一定要有最大最小值 -->
+	<!-- invalid:给无效值的input元素设置样式 -->
+	<!-- valid：给有效值的input元素设置样式 -->
+	<input type="number" min="1" max="6">
+	<input type="number" min="10" max="20">
+	<br>
+	<!-- optional:给可选填写值的input元素设置样式 -->
+	 必填：<input type="text" required>
+	 可选：<input type="text">	
+	 <br>
+	 <!-- read-only和read-write成对比
+	 	read-only给只读的input元素设置样式；
+        read-write给可读可写的input元素设置样式。
+	    -->
+	 <input type="text" value="我是只读的" readonly>
+</body>
+</html>

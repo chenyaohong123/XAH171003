@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				background: rgb(171, 204, 133);
+			}
+			
+			.container {
+				width: 400px;
+				height: 380px;
+				margin: 0 auto;
+				position: relative;
+				margin-top: 200px;
+			}
+			
+			.clockBg {
+				height: 380px;
+				border: 10px solid skyblue;
+				background: url(img/011.jpg);
+				background-position: -20px 0;
+				background-size: 430px 400px;
+				border-radius: 50%;
+				position: relative;
+				box-shadow: 0 0 20px white;
+			}
+			
+			.clockBg>div {
+				width: 20px;
+				height: 380px;
+				position: absolute;
+				left: 180px;
+			}
+			
+			.clockBg>div>span {
+				width: 100%;
+				display: block;
+				position: absolute;
+				text-align: center;
+				color: lightblue;
+			}
+			
+			.clockBg>div>span:nth-child(1) {
+				position: absolute;
+				top: 10px;
+			}
+			
+			.clockBg>div>span:nth-child(2) {
+				position: absolute;
+				bottom: 10px;
+			}
+			
+			.hourNeedle,
+			.minuteNeedle,
+			.secNeedle {
+				width: 10px;
+				height: 380px;
+				position: absolute;
+				left: 195px;
+				top: 10px;
+			}
+			
+			.hourNeedle div {
+				width: 10px;
+				height: 120px;
+				background: skyblue;
+				margin-top: 80px;
+				border-radius: 5px;
+			}
+			
+			.minuteNeedle div {
+				height: 140px;
+				width: 7px;
+				background: skyblue;
+				margin-top: 60px;
+				border-radius: 4px;
+			}
+			
+			.secNeedle div {
+				height: 160px;
+				width: 4px;
+				background: skyblue;
+				margin-top: 40px;
+				border-radius: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<!-- 表盘 -->
+			<div class="clockBg">
+
+				<div><span>12</span><span>6</span></div>
+				<div><span>1</span><span>7</span></div>
+				<div><span>2</span><span>8</span></div>
+				<div><span>3</span><span>9</span></div>
+				<div><span>4</span><span>10</span></div>
+				<div><span>5</span><span>11</span></div>
+			</div>
+
+			<!-- 时针 -->
+			<div class="hourNeedle">
+				<div></div>
+			</div>
+
+			<!-- 分针 -->
+			<div class="minuteNeedle">
+				<div></div>
+			</div>
+
+			<!-- 秒针 -->
+			<div class="secNeedle">
+				<div></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../jq19/jquery-3.2.1.min.js"></script>
+	<script>
+		for(var i = 0; i < 6; i++) {
+			var divs = $('.clockBg div')
+			$(divs[i]).css('transform', 'rotate(' + i * 30 + 'deg)');
+		}
+
+		var spans = $('.clockBg>div>span');
+		for(var i = 0; i < spans.length; i++) {
+			if(i % 2 == 0) {
+				$(spans[i]).css('transform', 'rotate(-' + i / 2 * 30 + 'deg)');
+			} 
+			else {
+				$(spans[i]).css('transform', 'rotate(-' + (i - 1) / 2 * 30 + 'deg)');
+			}
+		}
+		
+		function rotateNeedle(){
+			var myDate = new Date();
+			var  hour   = myDate.getHours();
+        	    var  minute = myDate.getMinutes();
+        	    var  second = myDate.getSeconds();
+        	    
+        	    $('.secNeedle').css('transform','rotate('   +  (second*6) +'deg)');
+        	    $('.minuteNeedle').css('transform','rotate(' + (hour*30   + minute*(30/60)) +'deg)');
+        	    $('.hourNeedle').css('transform','rotate('+(hour*30 + minute*(30/60))+'deg');
+		}
+		 rotateNeedle();
+		 
+		 setInterval(function(){
+           rotateNeedle();
+         },1000); 
+		
+	</script>
+
+</html>

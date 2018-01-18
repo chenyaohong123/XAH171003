@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>data对象</title>
+</head>
+<body>
+	<script>
+		var date1   = new Date();
+		var haomiao = date1.getTime();
+		console.log(haomiao);//获取1970年1月1日0点0分到当前的毫秒数
+
+		var sec  = date1.getSeconds();
+		console.log(sec);//获取当前时间的秒数
+
+		var min  = date1.getMinutes();
+		console.log(min);//获取当前时间的分钟数
+
+		var hour = date1.getHours();
+		console.log(hour);//获取当前时间的小时数
+
+		var day  = date1.getDate();
+		console.log(day);//获取日期
+
+		var day2 = date1.getDay();
+		console.log(day2);//获取星期
+
+		var month= date1.getMonth();
+		console.log(month);//获取月（0~11）
+
+		var year = date1.getFullYear();
+		console.log(year);//获取年
+	</script>
+</body>
+</html>

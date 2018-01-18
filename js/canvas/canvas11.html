@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>网格</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: lightsteelblue;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+		var ctx= mc.getContext('2d');
+		ctx.beginPath();
+		var  dis = 50;
+		for(var i = 1;i< mc.height/dis;i++){
+			ctx.moveTo(0,i*dis);
+			ctx.lineTo(mc.width,i*dis);
+		}
+		ctx.stroke();
+		
+		ctx.beginPath();
+		for(var j=1;j<mc.width/dis;j++){
+			ctx.moveTo(j*dis,0);
+			ctx.lineTo(j*dis,mc.height);
+		}
+		ctx.stroke();
+	</script>
+</html>

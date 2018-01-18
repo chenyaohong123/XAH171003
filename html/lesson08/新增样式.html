@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>新增样式</title>
+</head>
+<style>
+	.box1{
+		width: 100px;
+		height: 100px;
+		background: rgba(255,0,0,0.5);
+	}
+	.p1{
+		font-size: 32px;
+		color: white;
+		/*text-shadow:文字阴影：x轴偏移量 y轴偏移量 阴影区域 阴影颜色
+		给文字设置多个阴影效果时，每个阴影效果之间以英文逗号隔开。*/
+		text-shadow: 1px 1px 3px pink,-1px -1px 3px red;
+	}
+	.p2{
+		font-size: 30px;
+		/*-webkit-:chrome和Safari否内核前缀*/
+		-webkit-text-stroke:1px red;
+		/*direction：设定文本方向。
+		ltr：默认，文本方向从左向右。
+		rtl：文本方向从右向左。*/
+		direction: rtl;
+		width: 300px;
+		height: 100px;
+		border: 1px solid pink;
+		border-radius: 10px;
+		/*border-radius:左上和右下 右上和左下*/
+		border-radius: 5px 20px;
+		/*三个值：左上  右上和左下  右下*/
+		border-radius: 5px 15px 30px;
+		/*4个值：左上 右上  右下  左下*/
+		border-radius: 5px 15px 25px 35px;
+	}
+	.p3{
+		width: 100px;
+		height: 100px;
+		background-color: black;
+		box-shadow: 20px 20px 10px red;
+	}
+</style>
+<body>
+		<!-- rgba，a不透明度，数值介于0~1之间，0代表纯透明，1完全不透明，0.5半透明 -->
+		<div class="box1"></div>
+		<p class="p1">文字阴影</p>
+		<p class="p2">描边文字</p>
+		<p class="p3">box shadow</p>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#myCanvas2{
+				background: lightsteelblue;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="800" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		var mc = document.getElementById('myCanvas2');
+	    var ctx= mc.getContext('2d');
+	    function randomNum(x, y) {
+			return Math.round(Math.random() * (y - x) + x);
+		}
+	    //为画布添加鼠标摁下事件
+	    mc.onmousedown = function(){
+	    	//计算出鼠标基于canvas的位置
+	    	var e = event || window.event;
+	    	var startX = e.clientX - mc.offsetLeft;
+	    	var startY = e.clientY - mc.offsetTop;
+	    	//开启一条路径，并且设置第一个点
+	    	ctx.beginPath();
+	    	ctx.moveTo(startX,startY);
+	    	 mc.onmousemove = function(){
+	    	var  ev  = event || window.event;
+	    	var endX = ev.clientX - mc.offsetLeft;
+	    	var endY = ev.clientY - mc.offsetTop;
+	    	var num1 = randomNum(0,255);
+	    	var num2 = randomNum(0,255);
+	    	var num3 = randomNum(0,255);
+	    	//鼠标移动的点就是线所走的点，即lineTo的位置
+	    	ctx.lineTo(endX,endY);
+	    ctx.	strokeStyle = 'rgb('+ num1+','+num2+','+num3+')';
+	    ctx.lineWidth = '5';
+	    	ctx.stroke();
+	    }	
+	    }
+	     //鼠标抬起事件,抬起时清除mousemove
+	    	 document.onmouseup = function(){
+	    	 mc.onmousemove = null;
+	    	 }
+//	     mc.onmouseout = function(){
+//	      	mc.onmousemove = null;
+//	     }
+	</script>
+</html>

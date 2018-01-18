@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>选字游戏</title>
+	<style>
+	 #wrap{
+	 	width: 400px;
+	 	height:550px;
+	 	border:1px solid rgb(107,207,249); 
+	 	background: rgb(114,177,224);
+	 	box-shadow: 0  0  10px;
+	 	border-radius: 50px;
+	 	margin: 0 auto;
+	 }
+	 #nav{
+	 	width: 400px;
+	 	margin-top: 20px;
+	 }
+	 #time{
+	 	display: inline-block;
+	 	margin-left: 20px;
+	 }
+	 #score{
+	 	float: right;
+	 	margin-right: 20px;
+	 }
+	 #content{
+	 	width: 400px;
+	 	
+	 }
+	 #bigText{
+	 	font-size: 250px;
+	 	text-align: center;
+	 }
+	 #intr{
+	 	margin: 0  20px;
+	 	font-size: 25px;
+	 }
+	 #smallText{
+	 	font-size: 50px;
+	 	margin: 0  30px;
+	 }
+	</style>
+</head>
+<body>
+	<div id="wrap">
+	 	<div id="top">
+	 		<div id="time">倒计时：60s</div>
+	 		<div id="score">分数：0</div>
+	 	</div>
+	 	<div id="content">
+	 		<div id="bigText">黄</div>
+	 		<div id="intr">根据上面的字的颜色选择正确的字，选择正确自动开始</div>
+	 	</div>
+	 	<div id="smallText">
+	 		<span class="text">黄</span>
+	 		<span class="text">蓝</span>
+	 		<span class="text">红</span>
+	 		<span class="text">绿</span>
+	 		<span class="text">黑</span>
+	 	</div>
+	 </div>
+
+	 <script>
+	 	var  time1 = document.getElementById('time');
+	 	var score1 = document.getElementById('score');
+	 	var small1 = document.getElementsByClassName('text');
+	 	var   big1 = document.getElementById('bigText');
+        
+        var  charArr = ['黄','蓝','绿','红','黑'];
+        var  colorArr= ['yellow','blue','green','red','black'];
+
+	 	function randomNum(x,y){
+	 	  return Math.round(Math.random()*(y - x) + x);
+	 	}
+
+	 	function randomIndex(){
+	 	  var arr = [];
+	 	  while(arr.length < 5){
+	 	  	var num = randomNum(0,4);
+	 	  	if(arr.indexOf(num) < 0){
+	 	  		arr.push(num);
+	 	  	}
+	 	  }
+	 	  return arr;
+	 	}
+	 	randomIndex();
+
+
+        function createCon(){
+        //大字
+        var a = randomNum(0,4);
+        var b = randomNum(0,4);
+        big1.innerText = charArr[a];
+        big1.style.color = colorArr[b];
+
+        //小字
+        var small2 = randomIndex();
+        var small3 = randomIndex();
+        for(var i = 0;i < small1.length;i++){
+        var    c   = small2[i];
+        var    d   = small3[i]; 
+        small1[i].innerText = charArr[c];
+        small1[i].style.color = colorArr[d];
+        }
+        }
+        createCon();
+        
+        var score = 0;
+        var timing = 5;
+        var flag   = 1;
+        function game(){
+        for(i = 0;i < small1.length; i ++){
+        small1[i].onclick= function(){
+           var thisChar  = this.innerText;
+           var  index1   = charArr.indexOf(thisChar);
+           var  bigColor = bigText.style.color;
+           var  index2   = colorArr.indexOf(bigColor);
+           if(index1 == index2){
+           	score ++;
+           	score1.innerText = '得分：'+ score;
+           	createCon();
+           	if(flag == 1){
+            var timer = setInterval(function(){
+            timing --;
+            time1.innerText = '倒计时：' + timing + 's';
+            if(timing < 0){
+            clearInterval(timer);
+            alert('时间到');
+            score1.innerText = '得分：0';
+            time1.innerText  = '倒计时：0s';
+            time1.innerText  = '倒计时: 60s';
+            score = 0;
+            timing = 5;
+            flag = 1;
+            }
+            },1000);
+            flag = 0;
+           }
+          }
+         }
+ 
+        }
+       }
+        game();
+	 </script>
+</body>
+</html>

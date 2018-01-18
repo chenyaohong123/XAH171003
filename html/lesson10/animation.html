@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>animation</title>
+	<style>
+		@keyframes mov{
+			0%{
+				transform:translate(0.0);
+			}
+			50%{
+				transform: translate(500px,500px);
+			}
+			100%{
+				transform:translateX(1000px);
+			}
+		 
+	  	}
+		.box{
+			width: 100px;
+			height: 100px;
+			background: red;
+			/*应用动画名称*/
+			-webkit-animation-name:mov;
+			-moz-animation-name:mov;
+			-o-animation-name:mov;
+			animation-name:mov;
+			/*设置动画时间*/
+			animation-duration:5s;
+			/*设置动画播放完后保持最后一个状态*/
+			animation-fill-mode:forwards; 
+			/*设置动画曲线*/
+			animation-timing-function: linear; 
+			/*设置动画播放次数 infinite:无线循环*/
+			animation-iteration-count: infinite;
+
+			/*设置动画方向*/
+			/*0%-100%:normaL(默认值);
+			100%-0%：reverse;
+			0%-100%-0%:alternate;
+			100%-0%-100%:alternate-reverse;*/
+			animation-direction:alternate-reverse;
+
+		}
+		.box1{
+			width: 100px;
+			height: 100px;
+			background: green;
+			animation:mov 5s linear infinite alternate-reverse;
+			animation-delay:2s; 
+		}
+		.box1:hover{
+			/*设置动画暂停*/
+			animation-play-state: paused;
+		}
+		
+
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<div class="box1"></div>
+</body>
+</html>

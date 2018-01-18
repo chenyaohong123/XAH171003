@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>OUT_LOOP</title>
+</head>
+<body>
+	<script>
+		/*
+			js跳出循环：
+			break:结束整个循环。
+			continue:结束当次循环，后续循环继续执行
+
+
+		 */
+
+
+		//0~20偶数		
+		for( var a1 = 0; a1<=20; a1++){
+			if(a1 % 2 ==0){
+				if(a1 == 10){
+					//continue;//0 2 4 6 8  12 14 16 18 20
+					break; // 0 2 4 6 8
+				}
+			}
+			document.write(a1+'<br>');
+		}
+	</script>
+</body>
+</html>

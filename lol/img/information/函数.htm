@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)file:///Users/xalo/Desktop/%E4%BD%9C%E4%B8%9A/js/%E4%BD%9C%E4%B8%9A2/%E5%87%BD%E6%95%B0.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>函数</title>
+</head>
+<body>
+	<input type="text" id="x" value="">
+	<button id="z">计算</button>
+	<input type="text" id="y" value="">
+	<script>
+	 var x =document.getElementById('x');
+	 var y =document.getElementById('y');
+	 var z =document.getElementById('z');
+	 z.onclick =function(){
+	 	var x1 = x.value;
+	 	if (x1 < 1) {
+	 		y.value = x1;
+	 	}
+	 	else if (1 <= x1 < 10){
+	 		y.value = 2*x1-1;
+	 	}
+	 	else if (x1 >= 10){
+	 		y.value = 3*x1-11;
+	 	}
+	 }
+	</script>
+
+</body></html>

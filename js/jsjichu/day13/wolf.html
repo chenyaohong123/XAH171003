@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>锅打灰太狼</title>
+	<style>
+	#container{
+		width: 320px;
+		height: 480px;
+		background: url(img/game_bg.jpg);
+		margin: 0 auto;
+		position: relative;
+	}
+	#strat{
+
+		position: relative;
+		top: 200px;
+		left: 0px;
+		text-align: center;
+	}
+	#strat>p{
+		font-size: 30px;
+		color: red;
+		text-shadow: 0  0 10px yellow;
+		
+	}
+	#timing{
+		width:178px;
+		height: 18px;
+		position: absolute;
+		left: 63px;
+		top: 64px;
+		border-radius: 50px;
+		background: red;
+
+	}
+	#over {
+		position: relative;
+		top: 190px;
+		left: 0px;
+		text-align: center;
+	}
+	#over>p{
+		font-size: 30px;
+		color: red;
+		text-shadow: 0  0 10px yellow;
+	}
+	#strat,#over{
+		display: none;
+	}
+    #wolves{
+    	position: relative;
+    }
+    #wolves img{
+    	position: absolute;
+    }
+	</style>
+</head>
+<body>
+	<div id="container">
+	<!-- 分数 -->
+    <div id="score"></div>
+    <!-- 倒计时 -->
+    <div id="timing"></div>
+    <!-- 开始模块 -->
+    <div id="strat">
+    	<p>开始</p>
+    	<p>操作说明</p>
+    </div>
+    <!-- 结束模块 -->
+    <div id="over">
+    	<p>游戏结束</p>
+    </div>
+    <!-- 狼 -->
+    <div id="wolves"></div>
+	</div>
+
+	<script>
+ 
+	 var timing   = document.getElementById('timing');
+     var scoreDiv = document.querySelector('#score');
+     var startDiv = document.querySelector('#start>p');
+     var overDiv  = document.querySelector('#over>p');
+     var wolves   = document.querySelector('#wolves');
+     
+     //狼的位置数组(二维数组，内存数组第0个值代表left，第一个值代表top)
+     var posArr   = [
+     ['98px'  , '115px'],
+     ['17px'  , '160px'],
+     ['15px'  , '220px'],
+     ['30px'  , '293px'],
+     ['122px' , '273px'],
+     ['207px' , '295px'],
+     ['200px' , '211px'],
+     ['187px' , '141px'],
+     ['100px' , '185px']
+    ];
+     
+     //两个数之间的随机数
+     function randomNum(x,y){
+     return Math.floor(Math.random()*(y-x)+x);
+     }
+
+
+
+     function createWolf(){
+     	var wolf  = new Image();//创建狼
+     	//根据随机数的值，按比例生成小灰灰或灰太狼，设置类型
+     	wolf.type = randomNum(0,100) > 80 ? 'x' : 'h';
+     	wolf.index= 0;//初始图片的下标
+     	wolf.src  = 'img/' + wolf.type + wolf.index + '.png';
+
+     	//确定狼的位置
+     	var  indexNum; //随机位置
+        var  bol = 1;
+     	while(bol){
+        //获取所有的狼
+     	var  allWolf    = wolves.children;
+     	indexNum   = randomNum(0,8);//随机位置
+     	//判断新wolf的位置是否和已存在的wolf的位置重复
+     	for(var i = 0;i < allWolf.length; i ++){
+     		//获取每个狼的left或top
+     		if(allWolf[i].style.left == posArr[indexNum][0]) {
+            //indexNum不能使用，重新生成一个位置
+            break;
+        }
+     	}
+     	if(i == allWolf.length){
+     		bol = 0;
+     	}
+        }
+     	wolf.style.left = posArr[indexNum][0];//left
+     	wolf.style.top  = posArr[indexNum][1];//top
+
+     	wolves.appendChild(wolf);
+     	return wolf;
+     }
+     
+     function wolfFn(){
+     	 var wolf = createWolf();//创建一个新的狼对象
+
+     	 wolf.appearTimer= setInterval(function(){
+     	 wolf.index++;
+     	 //创建之后下标增加(0.png~5.png)
+     	 
+     	 wolf.src   = 'img/' + wolf.type + wolf.index + '.png';
+     	 //重置wolf的src
+
+         //加到最大时狼消失
+     	 if(wolf.index == 5){
+     	 clearInterval(wolf.appearTimer);
+     	 //index不再增加
+     	 	
+     	 wolf.disappearTimer = setInterval(function(){
+     	 wolf.index --;
+     	 //狼消失（5.png~0.png)
+     	 
+     	 wolf.src = 'img/' + wolf.type + wolf.index + '.png';
+
+
+        //减到最小不再减
+     	 if(wolf.index == 0){
+     	 clearInterval(wolf.disappearTimer);
+     	 wolf.remove();
+     	 //在页面里移除wolf节点
+     }
+     },100);
+     }
+     },100);
+     }
+     
+     //分装函数，每隔一段时间创建一个狼
+     function createWolfByTime(){
+     var createWolfByTimer = setInterval(function(){
+     	wolfFn();
+     },800);
+     }
+     createWolfByTime();
+
+	 function timingChangeFn(){
+	 	var   p   = 180;//倒计时总长度
+	 	var timer = setInterval(function(){
+
+        timing.style.width = p + 'px';
+        p--;
+        // wolfFn();
+        //长度减为0，清除计时器
+        if(p<=0){
+     	  clearInterval(timer);
+        }
+
+	 },100);
+	 }
+	 timingChangeFn();
+
+  
+
+	</script>
+</body>
+</html>

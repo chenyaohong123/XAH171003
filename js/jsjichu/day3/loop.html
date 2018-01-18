@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>循环</title>
+</head>
+<body>
+	<script>
+		/*
+			js循环:
+			1.while循环
+				（1）先判断循环条件，为假结束循环，为真（2）；
+				（2）执行循环体 121212.......
+			2.do....while....循环
+				(1)先执行循环体代码
+				(2)判断循环条件，为假结束循环，为真（1） 12121212.......
+
+			注释：while循环先判断条件，在执行循环体，do...while循环先循环，在判断条件；当添加相同且都为真的情况下，他们的作用相同；当条件都为假的情况下，while循环一次都不会执行，do....while....循环必定会执行一次	
+			3.for循环
+				（1）初始化循环变量，并为其赋初始值。（在for循环第一次循环的时候执行，只执行一次）
+				（2）判断循环条件，为假结束循环，为真（3）
+				（3）执行循环体代码
+				（4）循环变量变化（自增/自减）
+				1  234 234 234......	
+		*/
+	
+		
+		//while循环
+		var a1 = 0;
+		//    (条件)
+		while(a1<10){
+		    //循环体			
+			document.write(a1 + '<br>');
+			a1++;//a1的最终值是10
+		}
+
+
+		//do....while...循环
+		var a2 =  0;
+		do{
+			//循环体
+			a2++;
+			document.write(a2);
+		}while(a2 < 10);//条件
+
+
+		//for循环
+		//循环变量初始化 循环条件  循环变量变化
+		for(var a3 = 0; a3 < 5; a3++){
+			//循环体
+			console.log(a3);//a3的最终值是4
+		}
+		//a3的最终值是5
+		
+		for(var a4 = 10; a4>=0; a4--){
+			console.log(a4);
+		}
+
+		var i = 0;
+		var x ='';
+		while(i<5){
+			x=x + "The number is" + i +"<br>";
+			i++;
+		}
+		document.write(x);
+
+		var num1 = 3;
+		var num2 = '5';
+		var sum = num1+Number(num2);
+		console.log(sum);
+
+		//求0~100偶数的和
+		var x =0;
+		for(var a = 0; a <= 100; a+=2){
+			x += a; //x = x+a;
+			console.log(x);
+		}
+
+		var sum3 =0;
+		for(var a6 = 1; a6 <= 100; a6++){
+			if(a6 % 3 ==0 || a6 % 5== 0){
+				sum3 += a6;
+			}
+			console.log(sum3);
+		}
+
+
+
+	</script>
+</body>
+</html>

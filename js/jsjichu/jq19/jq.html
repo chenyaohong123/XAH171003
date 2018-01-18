@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang = 'ch'>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<div id="wrap">
+		<div class="box">
+			<p>1</p>
+		</div>
+	</div>	
+	<!--这是一行注释节点-->
+	<div class="box">
+		<p>2</p>
+	</div>
+	<div class="box2"></div>
+	<div class="box2"></div>
+	<div class="box2"></div>
+	<ul>
+		<li>11</li>
+		<li>22</li>
+	</ul>
+	<ul id = "list">
+		<li>33</li>
+		<li>44</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	<input type="number"/>
+	<input type="password"/>
+	<input type="file"/>
+	<input type="text"/>
+	<input type="email"/>
+	</body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src = "jquery-3.2.1.min.js">
+	/* jQuery是原生js的一个轻量级的库，有强大的旋转器(页面中的DOM节点)，write less，do more。
+	 大大减少了对DOM元素操作的代码。
+	 强大的兼容。
+	 注：script标签有src属性，不能再在其标签内部写任何js代码。
+	 
+	 jQuery选择器：
+	 使用jQuery选择器获取到的元素不再是原生的js对象，(不能再使用原生js对象的函数)，而是一个jQuery对象(可以使用)jQuery封装好的函数;
+	
+	 $('#wrap');//id选择器
+	 $('.box');//class选择器
+	 $('p');//标签选择器
+	 $('*');//所有节点(不包含文本节点)。
+	 $(this);//获取当前函数的所有值(获取到的jQuery；
+	 $('div.box');//获取class名为div;
+	 $(.box:first);//获取第一个clsaa名为box的元素
+	 $('ul li:first');//获取到第一个ul标签里的第一个li标签
+	 $('ul li:first-child');//所有ul标签里的第一个li标签
+	 $('[type]')//所有含有type属性的元素
+	 )
+	 */
+	</script>
+	<script>
+		var jswrap = document.getElementById('wrap');
+		var box    = document.getElementsByTagName('box');
+//		var list   = document.querySelector('#list');
+		
+		var jqwrap =  $('#wrap');//id选择器
+	 	console.log(jqwrap);
+
+		var jqbox  = $('.box>p');//clsss选择器
+		console.log(jqbox);
+		
+		var wrapP = $('#wrap .box p');
+		console.log(wrapP);
+		
+		var allEle = $('*');//所有的元素
+		console.log(allEle);//只包含元素节点
+		
+		var  boxDiv   = $('div.box2');
+		console.log(boxDiv);
+		
+		var firstBox2 = $('.box2:first');
+		console.log(firstBox2);
+		
+		var  aa  = $('ul li:first');
+	     console.log(aa);
+	     
+	     var  bb = $('ul li:first-child');
+	     console.log(bb);
+	     
+	     var eleHasType  = $('[type]');//有type属性的元素
+	     console.log(eleHasType );
+	     
+	     var inputHasTypes = $('input[type]');//含有type属性的input标签
+	     console.log(inputHasTypes);
+	     
+	     var typeIsText    = $('input[type = text]');//获取type属性值为text的input标签
+	     console.log(typeIsText);
+	     
+	     var typeIsNotText = $('input[type != text]');//获取type属性值不是text的input标签
+	     console.log(typeIsNotText);
+	     
+	     
+	     var evenLi   = $('#list li:even');//id为list下所有偶数li标签
+	     console.log(evenLi);
+	     
+	     var oddLi = $('#list li:odd');//id为list下所有奇数li标签
+	     console.log(oddLi);
+	</script>
+	
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#box{
+	 width: 200px;
+	 height: 200px;
+	 background: pink;
+	 position: absolute;
+	}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+	var  box = document.getElementById('box');
+	    document.onmousemove = function(){
+	    var    e        = window.event || event;
+	    box.style.left  = e.clientX + 'px';
+	    box.style.top   = e.clientY + 'px';	
+	    }
+	</script>
+</body>
+</html>

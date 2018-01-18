@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>分支语句</title>
+</head>
+<body>
+	<input type="text" name="" id="inp">
+	<button id="btn">判断</button>
+	<div id="box" style="width:200px;height: 200px; background: black;"></div>
+   <script>
+   	//var a =  true;//页面一加载 就弹出
+   	//var a = false;//不满足if条件，不能弹出
+   	//var a = 0;//不能弹出 -0
+   	//var a = '0';//非空字符串都是true 能弹出
+    //var a = '';//不能弹出 NaN undefined null
+    //var a = ' ';//可以弹出  空格是字符串
+   	// if (a){
+   	// 	alert(1);
+   	// }
+   	/*
+   	 1. if(条件){
+	       //代码块
+   	          }
+   	     当条件的值（布尔类型）
+   	     为true时，执行代码块，否则不给予反馈。
+   	  2.if(条件){
+	      //代码块1
+   	  		  }
+   	  	else{
+	     //代码块2
+   	  	}
+   	  	当条件为真，执行代码块1，if...else...语句执行结束。 当条件为假时，执行代码块2（不执行代码块1），if...else...语句执行结束。
+   	  3. switch(条件){
+	       case 情况1:
+	           代码块1；
+	           braek；//后续代码不再执行
+	       case 情况2:
+	           代码块2；
+	           break；
+	       default:
+	           代码块3；
+   	  				}
+   	  4.三目（元）运算符
+   	  var a2 = bol ？ 1:0;
+   	  根据bol的值（布尔类型）为a2赋值，如果bol的值为true，那么a2的值为1，否则为0.
+
+   	  判断条件，根据其具体情况（case判断），执行相对应的代码块。
+   	 */ 
+   	// var ele = document.getElementById('box');
+   	// ele.onclick = function(){
+   	// 	var a = ele.style.background;//只能获取行间元素的行间样式
+   	// 	if (a == 'black') {
+    //      ele.style.background = 'yellow';
+   	// 	}
+   		// if (a == 'yellow') {
+   		//  ele.style.background = 'black';	
+   		// }
+   	// 	else{
+   	// 	ele.style.background = 'black';	
+   	// 	}   
+   	// }
+  
+
+   	var inp = document.getElementById('inp');
+   	var btn = document.getElementById('btn');
+   	//为按钮绑定点击事件
+   	 btn.onclick =  function(){
+   	 	 var val = inp.value;
+   	 	 //typeof 获取数据的类型
+   	 	 if(val == ''){
+   	 	 	alert('您没有输入任何信息');
+   	 	 }
+   	 	 else if (Number(val) != inp.value) {
+   	 	 	 alert('您输入了一个字符串');
+   	 	 }
+   	 	 else if (Number(val) == inp.value) {
+   	 	 	 alert('您输入了一个数字');
+   	 	 }
+   	 	 else{
+   	 	 	alert('这是其他情况');
+   	 	 }
+   	 }
+      
+      // var n = 3;
+      // switch (n) {
+      // 	case 1:
+      // 		alert('你输入的是1');
+      // 		break;
+      // 	case 3:
+      // 		alert('你输入的是3');
+      // 		break;
+      // }
+      
+      // var bol = true;
+      // var a1;
+      // 	if(bol){
+      // 		a1=1;
+      // 	}
+      // else{
+      // 	    a1=0;
+      // }
+      // var a2 = bol ? 1:0;
+      // console.log(a1);
+      // console.log(a2);
+
+   </script>
+</body>
+</html>

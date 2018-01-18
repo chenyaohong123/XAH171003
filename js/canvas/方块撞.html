@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>canvas+ 面向对象 +碰壁反弹</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: black;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="1000" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+    <script type="text/javascript">
+    	      var mc = document.getElementById('myCanvas2');
+		  var ctx= mc.getContext('2d');
+		  var minX = 50,maxX = mc.width-100;
+		  var minY = 50,maxY = mc.height - 100;
+		  var minR = 2,maxR = 4;
+		  var minV = -4,maxV = 4;
+		  var minW = 50,maxW = 100;
+		  var minH = 50,maxH = 100;
+		  //鼠标位置对象
+//		  var mousePoint = {x:-1,y:-1};
+		  function rn(x,y){
+		  	return Math.round(Math.random()*(y-x)+x);
+		  }
+
+		  function Ball(x,y,width,height,bgColor,vx,vy){
+		  	this.x = x;
+		  	this.y = y;
+		  	this.width = width;
+		  	this.height = height;
+		  	this.bgColor = bgColor;
+		  	this.vx = vx;
+		  	this.vy = vy;
+		  }
+		  
+		  
+		  //Ball的原型方法: 碰壁反弹
+		  Ball.prototype.draw = function(){
+			//碰壁置负
+			if(this.x<0 || this.x >mc.width-this.width){
+				this.vx = -this.vx;
+			}
+			if(this.y<0 || this.y>mc.height-this.height ) {
+				this.vy = -this.vy;
+			}
+			//改变圆心位置
+			this.x += this.vx;
+			this.y += this.vy;
+			//绘制
+			ctx.beginPath();
+			ctx.fillRect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.bgColor;
+			ctx.fill();
+		}
+		  
+		  //实例化小球
+		  var ballArr = [];
+		  function createBall(){
+		  	var x = rn(minX,maxX);
+		  	var y = rn(minY,maxY);
+		  	var width = rn(minW,maxW);
+		  	var height = rn(minH,maxH)
+		  	var bgColor = 'rgba('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+',0.8)';
+		  	var vx = rn(minV,maxV);
+		  	var vy = rn(minV,maxV);
+		  	if(vx==0){vx+=1}
+		  	if(vy == 0){vy -=1}  	
+		  	var newBall = new Ball(x,y,width,height,bgColor,vx,vy);
+		  	ballArr.push(newBall);
+
+		  }
+		  
+		  for(var i = 0;i<5;i++){
+		  	createBall();
+		  }
+		  
+		  setInterval(function(){
+		  	ctx.clearRect(0,0,1000,600);
+		  	for(var i=0;i<ballArr.length;i++){		  		
+		  		ballArr[i].draw();
+		  	}
+		  	jugeTwoBall();
+		  },20);
+		  
+          //分装计算2个点距离的函数
+		  function getDis(ball1,ball2){
+		  	  //根据位置
+		  	  
+		  	  var  dis =Math.sqrt(Math.pow((ball1.x + ball1.width/2)-(ball2.x + ball2.width/2),2)+Math.pow((ball1.y + ball1.height/2)-(ball2.y + ball2.height/2),2));
+		      //返回值
+		      if(dis <=ball1.width/2 + ball2.width/2){
+                
+		      	return true;
+		      }
+		      if(dis <=ball1.height/2 + ball2.height/2){
+                
+		      	return true;
+		      }
+		      else{
+		      	return false;
+		      }
+		     }
+		      
+		     //两点之间画线的函数、
+		     function drawLine(ball1,ball2){
+		     	ctx.beginPath();
+		     	ctx.moveTo(ball1.x + ball1.width/2, ball1.y + ball1.height/2);
+		     	ctx.lineTo(ball2.x +  ball2.width/2,ball2.y + ball2.height/2);
+		     	ctx.strokeStyle = 'rgba('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+',0.8)';
+		     	ctx.stroke();
+		     }
+		  //用循环计算两个小球之间的圆心距
+		  function jugeTwoBall(){
+		  	for(var i=0;i<ballArr.length-1;i++){
+		  		for(var j=i+1;j<ballArr.length;j++){
+		  		var bol = getDis(ballArr[i],ballArr[j]);//返回布尔值
+		  		if(bol){
+		  			ballArr[i].bgColor = 'rgba('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+',0.8)';
+		  			ballArr[j].bgColor = 'rgba('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+',0.8)';
+		  			ballArr[i].vx = -ballArr[i].vx;
+		  			ballArr[j].vy = -ballArr[j].vy;
+		  			ballArr[j].vx = -ballArr[j].vx;
+		  			ballArr[i].vy = -ballArr[i].vy;
+		  			
+		  			//画线
+		  			drawLine(ballArr[i],ballArr[j]);
+		  		}
+		  		
+		  		}
+		  	}
+		  }
+    </script>
+</html>

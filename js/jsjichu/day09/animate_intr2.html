@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>js动画练习</title>
+	<style>
+	#wrap{
+        position: relative;
+		width:100%;
+		height:1200px;
+		background: lightblue;
+		border:1px solid pink;
+		}
+	#box{
+		width:50px;
+		height: 50px;
+		background: pink;
+		position: absolute;
+		left:0;
+		top: 0;
+	}
+	</style>
+</head>
+<body>
+ <div id="wrap">
+ 	<div id="box"></div>
+ </div>
+<script>
+	var wrap = document.getElementById('wrap');
+	var box  = document.getElementById('box');
+	var time = 0;
+	//计算出盒子可设置的最大Left
+	var maxLeft = wrap.offsetWidth - box.offsetWidth;
+    var speed  = 1;
+	//计时器
+	setInterval(function(){
+		// if(time >=maxLeft){
+		// 	time --;
+		// 	box.style.left = time + 'px';
+		// 	return time;
+		// }
+		// else{
+  //           time ++;
+  //           box.style.left = time + 'px';
+		// }
+        //var newLeft = box.offsetLeft;
+        //获取当前的left值
+        //newLeft += 1;
+        //box.style.left = newLeft + 'px';
+        
+        
+        if(time>= maxLeft){
+        	speed = -speed;
+        }
+        if(time < 0){
+        	speed = -speed;
+        }
+        time += speed;
+        box.style.left = time + 'px';
+	},2);
+	//time += -1;
+	//time  = time + (-1);
+	//time  = time - 1;
+	//time -= 1;
+	
+	//y方向
+	var maxHeight = wrap.offsetHeight - box.offsetHeight;
+	var speed2    = 1 ;
+	var time2     = 0;
+	var timer2    = setInterval(function(){
+	    	if(time2 >= maxHeight){
+	    		speed2 = -speed2;
+	    	}
+	    	if(time2  < 0){
+	    		speed2 = -speed2;
+	    	}
+	    	time2 +=speed2;
+	    	box.style.top = time2 + 'px';
+	    },2);
+</script>
+</body>
+</html>

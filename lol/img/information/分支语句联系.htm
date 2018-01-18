@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)file:///Users/xalo/Desktop/XAH171003/js/jsjichu/%E7%BB%83%E4%B9%A0/if_work.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>分支语句联系</title>
+</head>
+<body>
+	<div style="width: 100px; height: 100px; background:pink;" id="box" ;="" flag="true"></div>
+	<input type="number" value="" id="c">
+	<button id="d">判断</button>
+	<script>
+	 var box = document.getElementById('box');
+
+	 //根据js的变量来控制代码块的执行
+	 //     var changeFlag = true;
+	 //     box.onclick =function(){
+  	 //     if(changeFlag){
+  	 //     box.style.width  = '200px';
+  	 //     box.style.height = '200px';
+  	 //     changeFlag =  false;
+  	 //       }
+  	 //     else{
+  	 //     box.style.width  = '100px';
+  	 //     box.style.height = '100px';
+  	 //     changeFlag =  true;
+  	 //       }
+  	 //    }
+  	 
+  	 //为元素设置HTML自定义属性
+  	 box.onclick = function(){
+  	 	//获取元素的自定义属性 ele.getAttribute
+         var thisFlag =box.getAttribute('flag');
+        //这里获取到的thisFlag是一个字符串（true == 'true' 结果为false, false == 'false' 的结果也为false）;
+       
+         if(thisFlag == 'true'){
+         	box.style.width = '200px';
+         	box.style.height = '200px';
+        //设置元素的属性值 ele.setAttribute('属性','值');
+         	box.setAttribute('flag', 'false');
+         }
+         else{
+         	box.style.width = '100px';
+         	box.style.height = '100px';
+         	box.setAttribute('flag','true');
+         }
+  	 }
+
+  	 //申明3个变量
+  	 var a = 10,  b = 20  , c = 5;
+  	 var max ;
+  	 //三目运算符：
+  	 //表达式 1？ 表达式2 : 表达式3；
+  	 //判断表达式1的值（布尔类型）
+  	 //为真，返回表达式2的值，为假返回表达式3的值。
+  	 max = a > b ? a : b;
+  	 max = max > c ? max:c;
+  	 console.log(max);
+  	//比较
+    //   if (a>b){
+    //    max = a;
+    // }
+    //    else{
+    //     max =b;
+    //  }
+    
+    var a = 3;//0011
+    var b = 5;//0101
+    a = a ^ b;//异或  0110
+    console.log('a');
+    b = a ^ b;//0011
+    a = a ^ b;//0101
+
+    var c = document.getElementById('c');
+    var d = document.getElementById('d');
+    d.onclick = function(){
+    	var year = c.value;
+    	if(year == ""){
+    		alert("请输入正确的年份");
+    	}
+       else{
+       	//a || (b && c)
+    	if(year%400 == 0 || (year%4 ==0 && year%100 != 0)){
+           alert('闰年');
+    	}
+    	else{
+    		alert('平年');
+    	}
+     }
+    
+   }
+
+	</script>
+
+</body></html>

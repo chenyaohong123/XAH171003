@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>小球撞</title>
+		<style type="text/css">
+			#myCanvas2{
+				background: black;
+				display:block;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas2" width="1000" height="600">
+			您的浏览器不支持canvas，赶快更新版本吧!
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		 var mc = document.getElementById('myCanvas2');
+		 var ctx= mc.getContext('2d');
+		 var minox = 5,maxox = mc.offsetWidth -5;
+		 var minoy = 5,maxoy =mc.offsetHeight-5;
+		 var minr = 4,maxr =5; 
+		 var minv = -8,maxv = 8;
+		 
+		 function rn(x1,y1){
+		 	return Math.round(Math.random()*(y1-x1)+x1);
+		 }
+		 
+		 function Ball(ox,oy,r,bgColor,vx,vy){
+		 	this.ox = ox;
+		 	this.oy = oy;
+		 	this.r  = r;
+		 	this.bgColor = bgColor;
+		 	this.vx = vx;
+		 	this.vy = vy;
+		 }
+		 
+		 Ball.prototype.draw = function(){
+		 if(this.ox<this.r||this.ox>mc.offsetWidth-this.r){
+		 	  this.vx = - this.vx;
+		 }
+		 if(this.oy<this.r||this.oy>mc.offsetHeight - this.r){
+		 	  this.vy  = -this.vy;
+		 }
+		 this.ox += this.vx;
+		 this.oy += this.vy;
+		 ctx.beginPath();
+		 ctx.arc(this.ox,this.oy,this.r,0,2*Math.PI);
+		 ctx.fillStyle = this.bgColor;
+		 ctx.fill();	 
+		 }
+		 
+		 var ball = [];
+		 function createBall(){
+		    var ox = rn(minox,maxox);
+		  	var oy = rn(minoy,maxoy);
+		  	var r = rn(minr,maxr);
+		  	var bgColor = 'rgba('+rn(30,255)+','+rn(30,255)+','+rn(30,255)+',0.8)';
+		  	var vx = rn(minv,maxv);
+		  	var vy = rn(minv,maxv);
+		  	if(vx==0){vx+=1}
+		  	if(vy == 0){vy -=1}  	
+		  	var newBall = new Ball(ox,oy,r,bgColor,vx,vy);
+		  	ball.push(newBall);			 
+		 }
+		  
+		   for(var i = 0;i<200;i++){
+		  	createBall();
+		  }
+		   
+		   setInterval(function(){
+		  	ctx.clearRect(0,0,1000,600);
+		  	for(var i=0;i<ball.length;i++){		  		
+		  		ball[i].draw();
+		  	}
+		  },30);
+		 
+	</script>
+</html>

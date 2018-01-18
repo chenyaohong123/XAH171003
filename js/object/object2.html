@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		
+		function People(name_,age_){
+			this.name = name_;
+			this.age  = age_;
+		}
+		
+		People.prototype = {
+			eat:function(){
+				console.log(1);
+			}
+		};
+		var p1 = new People('aa','12');//实例化对象
+		console.log(p1);
+		p1.eat();
+	</script>
+</html>

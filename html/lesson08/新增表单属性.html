@@ -1,0 +1,56 @@
+
+	<meta charset="UTF-8">
+	<title>新增表单属性</title>
+	<style>
+		input[type="image"]{
+			width: 100px;
+			height: 50px;
+		}
+	</style>
+</head>
+<body>
+	<!--novalidate:提交表单时不对表单里的内容进行格式验证；默认情况下提交表单时会对表单里的内容进行格式验证 -->
+	<!--autocomplete:规定当用户输入字段时，是否应该启用自动完成功能。
+	    on：默认值 启用自动完成
+	    off：禁用自动完成功能  -->
+	<!--autofocus:当页面加载时，input元素自动获取焦点  -->
+	<form action="action.html" novalidate autocomplete="off" method="get" enctype="text/plain" target="self">
+		用户名：<input type="text"><br>
+		密码：<input type="password" autofocus><br>
+		邮件：<input type="email" name="email">
+		<br>
+		<!-- list属性：应用数据列表，其中包含输入字段的预定义选项；
+			datalist：单独使用该标签不会被浏览器显示，需要绑定input标签的list属性一起用，才能显示搭浏览器上
+			datalis标签定义选项列表，可与input元素配合使用该元素，来定义input的值-->
+		<input list="sex">
+		<datalist id="sex">
+			<option value="男士"></option>
+			<option value="女士"></option>
+			<option value="未知"></option>
+		</datalist>
+		<br>
+		<!-- step:规定有效值每次增减幅度
+			需要给input标签添加max，min范围-->
+		<input type="range" max="100" min="10" step="3"><br>
+		<!-- multiple:规定输入字段可选择多个值；适用的input类型是file和email；
+		mac按住command选择多个值；
+		window按住control选择多个值； -->
+		<input type="file" multiple>
+		<br>
+		<!-- pattern属性就是用于验证input标签里的正则表达式 -->
+		国家代码：<input type="text" name="country_code" pattern="[A-Za-z]{3}" title="三个字母的国家代码">
+		<br>
+		<!-- placeholder：提示用户输入信息 -->
+		<!-- required:属性是用户必须填写的input元素
+		     optional：是用户可选填的。默认值 -->
+		姓名：<input type="text" placeholder="请输入真实姓名" required>
+		<br>
+		<!-- type:img与submit都具有提交表单的功能，只是在浏览器里显示的效果不一样
+		 -->
+		<!-- formaction,formmethod,formenctype,formtarget,formbovalidate,适用的标签时in put类型为subm和image，作用是重写action，method，enctype，target和noval idata的值 -->
+		<input type="submit" value="提交" formaction="https://www.baidu.com" formmethod="post" formenctype="multipart/form-data" formtarget="_blank">
+		<!-- input的width，height属性只是用于type类型为image的标签，目的是为了在页面加载的时候给标签留有足够的空间，即使图片没有加载成功也不会使整个页面的布局发送变化 -->
+		<input type="image" src="img/timg (1).jpeg" width="200" height="200">
+	</form>
+</body>
+</html>
